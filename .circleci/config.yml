@@ -1,28 +1,22 @@
-version: 2
+version: 2.1
 jobs:
   build:
-    branches:
-      only:
-        - /.*/
+    working_directory: ~/todo
     docker:
-      - image: circleci/node:10.15
-    working_directory: ~/premedium
+      - image: circleci/node:10.16.3
     steps:
       - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: npm install
-      - run: cd client
-      - run: npm install
-      - run: cd ../
-
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
       - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: npm run test
-      - run: npm run lint
+            - ./node_modules
+      - run:
+          name: test
