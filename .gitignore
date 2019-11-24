@@ -60,4 +60,11 @@ typings/
 # next.js build output
 .next
 
+# webstorm configs
 .idea
+
+# compiled ts files
+dist
+
+# compiled client files
+public

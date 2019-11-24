@@ -9,6 +9,8 @@
     "jest": true
   },
   "extends": [
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "airbnb-typescript",
+    "prettier"
   ]
 }
