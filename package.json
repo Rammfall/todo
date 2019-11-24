@@ -65,7 +65,7 @@
     "singleQuote": true
   },
   "lint-staged": {
-    "*.ts": "eslint --fix"
+    "*.ts": ["prettier --write", "eslint --fix", "git add"]
   },
   "husky": {
     "hooks": {
