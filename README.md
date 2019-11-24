@@ -1,5 +1,5 @@
 # ToDo
-[![Travis CI on linux](https://img.shields.io/travis/com/rammfall/todo?style=for-the-badge)]
+![Travis CI on linux](https://img.shields.io/travis/com/rammfall/todo?style=for-the-badge)
 
 ToDo list on node.js(typescript) and React
 
