@@ -59,13 +59,19 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.14.0"
+    "pg": "^7.14.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.21"
   },
   "prettier": {
     "singleQuote": true
   },
   "lint-staged": {
-    "*.ts": ["prettier --write", "eslint --fix", "git add"]
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
