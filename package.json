@@ -7,6 +7,8 @@
     "start": "node dist/index.js",
     "dev:server": "nodemon",
     "dev:server:run": "ts-node src/index.ts",
+    "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
+    "db:revert": "ts-node ./node_modules/.bin/typeorm migration:revert",
     "build": "rimraf dist && tsc",
     "lint": "eslint ./**/*.ts --fix --format stylish --color",
     "test": "jest"
@@ -80,5 +82,9 @@
       "pre-commit": "lint-staged",
       "pre-push": "lint-staged"
     }
-  }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "src/db/migration"
+  ]
 }
