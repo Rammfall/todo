@@ -1,10 +1,24 @@
 import { createConnection, Connection } from 'typeorm';
-import { dbURL, adapter } from '../config/database';
+
+import {
+  type,
+  database,
+  host,
+  username,
+  password,
+  port
+} from '../config/database';
+import User from './entity/user';
 
 export default async function instance() {
   const connection: Connection = await createConnection({
-    url: dbURL,
-    type: adapter
+    database,
+    type,
+    host,
+    username,
+    password,
+    port,
+    entities: [User]
   });
 
   console.log(connection.isConnected);

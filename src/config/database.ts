@@ -1,5 +1,8 @@
-export const dbURL: string =
-  process.env.dbURL ||
-  'postgresql://todo_user:todo_pass@localhost:5432/todo_dev';
-export const some: string = process.env.some || 'some';
-export const adapter: 'postgres' = 'postgres';
+const { dbHost, dbPort, dbUser, dbPassword, dbName } = process.env;
+
+export const type = 'postgres';
+export const host = dbHost || 'localhost';
+export const database = dbName || 'todo_dev';
+export const username = dbUser || 'todo_user';
+export const password = dbPassword || 'todo_pass';
+export const port: number = +dbPort || 5432;
