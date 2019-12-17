@@ -1,17 +1,19 @@
+const { dbHost, dbPort, dbUser, dbPassword, dbName } = process.env;
+
 module.exports = {
   type: 'postgres',
-  host: process.env.dbHost || 'localhost',
-  port: process.env.dbPort || 5432,
-  username: process.env.dbUser || 'todo_user',
-  password: process.env.dbPassword || 'todo_pass',
-  database: process.env.dbName || 'todo_dev',
+  host: dbHost || 'localhost',
+  port: dbPort || 5432,
+  username: dbUser || 'todo_user',
+  password: dbPassword || 'todo_pass',
+  database: dbName || 'todo_dev',
   synchronize: true,
   logging: true,
   entities: ['src/db/entity/**/*.ts'],
   migrations: ['src/db/migration/**/*.ts'],
   subscribers: ['src/subscriber/**/*.ts'],
   cli: {
-    entitiesDir: 'src/entity',
+    entitiesDir: 'src/db/entity',
     migrationsDir: 'src/db/migration',
     subscribersDir: 'src/db/subscriber'
   }
