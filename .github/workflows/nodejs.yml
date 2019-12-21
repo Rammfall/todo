@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    name: main
 
     runs-on: ubuntu-latest
 
@@ -25,3 +26,6 @@ jobs:
         npm test
       env:
         CI: true
+        dbUser: postgres
+        dbName: postgres
+        dbPassword:
