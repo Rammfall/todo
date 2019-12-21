@@ -1,7 +1,9 @@
 import app from './application';
 import { PORT } from './config/application';
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   // eslint-disable-next-line no-console
-  console.log(`${new Date()}:    Server is running on ${PORT} port.`);
+  console.log(
+    `${new Date().toLocaleString()}:    Server is running on ${PORT} port.`
+  );
 });

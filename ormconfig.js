@@ -11,7 +11,7 @@ module.exports = {
   logging: true,
   entities: ['src/db/entity/**/*.ts'],
   migrations: ['src/db/migration/**/*.ts'],
-  subscribers: ['src/subscriber/**/*.ts'],
+  subscribers: ['src/db/subscriber/**/*.ts'],
   cli: {
     entitiesDir: 'src/db/entity',
     migrationsDir: 'src/db/migration',
