@@ -5,8 +5,9 @@ jobs:
       only:
         - /.*/
     docker:
-      - image: circleci/node:10.15
-    working_directory: ~/premedium
+      - image: circleci/node:10.17
+      - image: circleci/postgres:latest-postgis
+    working_directory: ~/todo
     steps:
       - checkout
       - restore_cache:
