@@ -1,6 +1,9 @@
 language: node_js
 dist: bionic
 
+before_script:
+  - npm run db:migrate
+
 env:
   - dbUser=postgres dbPassword= dbName=postgres
 
