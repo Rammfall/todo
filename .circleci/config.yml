@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - /.*/
+    docker:
+      - image: circleci/node:10.17
+        environment:
+          dbUser: postgres
+          dbName: postgres
+          dbPassword:
+      - image: circleci/postgres:latest-postgis
+    working_directory: ~/todo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: npm run test
+      - run: npm run lint
