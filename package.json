@@ -1,7 +1,7 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "It is a simple todo list",
+  "description": "It is a simple todo list test PR",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
