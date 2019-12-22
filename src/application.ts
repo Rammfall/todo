@@ -1,20 +1,36 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, Router } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import helmet from 'helmet';
+import 'reflect-metadata';
+import { getRepository } from 'typeorm';
+
+import applicationRouter from './routes';
+import './db';
+import User from './db/entity/user';
 
 const app = express();
-const applicationRouter = express.Router();
+const rootRouter = Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(compression());
+app.use(helmet());
 
-applicationRouter.get('/', (req: Request, res: Response) => {
+rootRouter.get('/', (req: Request, res: Response) => {
   res.json({ status: 200 });
 });
+rootRouter.get('/user', async (req: Request, res: Response) => {
+  const user = await getRepository(User)
+    .createQueryBuilder('user')
+    .getMany();
 
-app.use('/', applicationRouter);
+  res.json({ user });
+});
+
+app.use('/', rootRouter);
+app.use('/api', applicationRouter);
 
 export default app;

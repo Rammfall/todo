@@ -7,8 +7,10 @@
     "start": "node dist/index.js",
     "dev:server": "nodemon",
     "dev:server:run": "ts-node src/index.ts",
+    "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
+    "db:revert": "ts-node ./node_modules/.bin/typeorm migration:revert",
     "build": "rimraf dist && tsc",
-    "lint": "eslint ./**/*.ts --fix --format stylish --color",
+    "lint": "eslint src/**/*.ts --fix --format stylish --color",
     "test": "jest"
   },
   "repository": {
@@ -54,23 +56,45 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/helmet": "0.0.45",
+    "@types/jsonwebtoken": "^8.3.5",
+    "@types/validator": "^12.0.1",
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.14.0"
+    "pg": "^7.14.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.21",
+    "validator": "^12.1.0"
   },
   "prettier": {
     "singleQuote": true
   },
   "lint-staged": {
-    "*.ts": ["prettier --write", "eslint --fix", "git add"]
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
       "pre-push": "lint-staged"
     }
-  }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "src/db/migration"
+  ]
 }

@@ -5,8 +5,13 @@ jobs:
       only:
         - /.*/
     docker:
-      - image: circleci/node:10.15
-    working_directory: ~/premedium
+      - image: circleci/node:10.17
+        environment:
+          dbUser: postgres
+          dbName: postgres
+          dbPassword:
+      - image: circleci/postgres:latest-postgis
+    working_directory: ~/todo
     steps:
       - checkout
       - restore_cache:

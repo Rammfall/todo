@@ -4,8 +4,14 @@ on: [push]
 
 jobs:
   build:
+    name: main
 
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:10
+        ports: ["5432:5432"]
 
     strategy:
       matrix:
@@ -25,3 +31,6 @@ jobs:
         npm test
       env:
         CI: true
+        dbUser: postgres
+        dbName: postgres
+        dbPassword:
