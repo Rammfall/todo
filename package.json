@@ -10,7 +10,7 @@
     "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
     "db:revert": "ts-node ./node_modules/.bin/typeorm migration:revert",
     "build": "rimraf dist && tsc",
-    "lint": "eslint src/**/*.ts --fix --format stylish --color",
+    "lint": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
     "test": "jest"
   },
   "repository": {

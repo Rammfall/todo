@@ -12,5 +12,8 @@
     "plugin:jest/recommended",
     "airbnb-typescript",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  }
 }

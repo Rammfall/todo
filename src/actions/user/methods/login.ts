@@ -1,14 +1,25 @@
 import { sign } from 'jsonwebtoken';
-import { v4 } from 'uuid';
 
-import { jwtAccessSecret, jwtExpiredTime } from '../../../config/application';
+import {
+  jwtAccessSecret,
+  jwtAccessExpiredTime,
+  jwtRefreshSecret,
+  jwtRefreshExpiredTime,
+  jwtAccessTokenWord,
+  jwtRefreshTokenWord
+} from '../../../config/application';
+import tokenizer from './utils/tokenizer';
 
-export default async (id: number) => {
-  const token = sign({ id }, jwtAccessSecret, { expiresIn: jwtExpiredTime });
-  const refreshToken = v4();
+export default async (id: number, username: string) => {
+  const token: string = sign({ id, username }, jwtAccessSecret, {
+    expiresIn: jwtAccessExpiredTime
+  });
+  const refreshToken: string = sign({ id, username }, jwtRefreshSecret, {
+    expiresIn: jwtRefreshExpiredTime
+  });
 
   return {
-    token,
-    refreshToken
+    token: tokenizer(token, jwtAccessTokenWord),
+    refreshToken: tokenizer(refreshToken, jwtRefreshTokenWord)
   };
 };
