@@ -21,10 +21,11 @@ matrix:
 
 install:
   - npm install
+  - cd client && npm i
 
 cache: npm
 
 script:
+  - npm run build && cd client && npm run build && cd ../
   - npm run lint
   - npm run test
-  - npm run build
