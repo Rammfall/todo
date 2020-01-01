@@ -28,5 +28,6 @@ jobs:
 
       - run: cd client && npm i && cd ../
       - run: npm run build && cd client && npm run build && cd ../
+      - run: npm run db:migrate
       - run: npm run lint
       - run: npm run test

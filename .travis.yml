@@ -20,8 +20,8 @@ matrix:
         postgresql: "10"
 
 install:
-  - npm install
-  - cd client && npm i
+  - npm ci
+  - cd client && npm ci && cd ../
 
 cache: npm
 

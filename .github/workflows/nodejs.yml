@@ -27,6 +27,7 @@ jobs:
       run: |
         npm ci
         npm run build
+        npm run db:migrate
         cd client
         npm ci
         npm run build
