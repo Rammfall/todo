@@ -23,6 +23,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+      env:
+        CI: true
+        dbUser: postgres
+        dbName: postgres
+        dbPassword:
     - name: npm install and build
       run: |
         npm ci
@@ -35,8 +40,3 @@ jobs:
       run: |
         npm run lint
         npm test
-      env:
-        CI: true
-        dbUser: postgres
-        dbName: postgres
-        dbPassword:
