@@ -37,6 +37,11 @@ jobs:
         npm ci
         npm run build
     - name: lint test
+      env:
+        CI: true
+        dbUser: postgres
+        dbName: postgres
+        dbPassword:
       run: |
         npm run lint
         npm test
