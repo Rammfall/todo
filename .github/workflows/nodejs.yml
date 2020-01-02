@@ -23,12 +23,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: npm install and build
       env:
         CI: true
         dbUser: postgres
         dbName: postgres
         dbPassword:
-    - name: npm install and build
       run: |
         npm ci
         npm run build
