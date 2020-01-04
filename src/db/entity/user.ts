@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+
+// eslint-disable-next-line import/no-cycle
+import UserSession from './userSession';
 
 @Entity()
 export default class UserT {
@@ -21,4 +24,10 @@ export default class UserT {
     type: 'varchar'
   })
   password: string;
+
+  @OneToMany(
+    () => UserSession,
+    (session: UserSession) => session.user
+  )
+  sessions: UserSession[];
 }
