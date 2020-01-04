@@ -5,7 +5,8 @@ import { getRepository } from 'typeorm';
 import {
   jwtAccessSecret,
   jwtAccessExpiredTime,
-  jwtAccessTokenWord
+  jwtAccessTokenWord,
+  refreshTokenExpired
 } from '../../../config/application';
 import tokenizer from './utils/tokenizer';
 import UserSession from '../../../db/entity/userSession';
@@ -15,13 +16,18 @@ export default async (id: number, username: string) => {
     expiresIn: jwtAccessExpiredTime
   });
   const refreshToken: string = v4();
+  const tempDate: Date = new Date();
+  const expiredDate: Date = new Date(
+    tempDate.setTime(tempDate.getTime() + +refreshTokenExpired)
+  );
+
   await getRepository(UserSession)
     .createQueryBuilder('session')
     .insert()
     .into(UserSession)
     .values({
       refreshToken,
-      expiredDate: new Date(),
+      expiredDate,
       user: id
     })
     .execute();
