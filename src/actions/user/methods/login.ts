@@ -10,9 +10,11 @@ import {
 } from '../../../config/application';
 import tokenizer from './utils/tokenizer';
 import UserSession from '../../../db/entity/userSession';
+import User from '../../../db/entity/user';
 
-export default async (id: number) => {
-  const accessToken: string = sign({ id }, jwtAccessSecret, {
+export default async (user: User) => {
+  const { id, username } = user;
+  const accessToken: string = sign({ id, username }, jwtAccessSecret, {
     expiresIn: jwtAccessExpiredTime
   });
   const refreshToken: string = v4();
@@ -28,7 +30,7 @@ export default async (id: number) => {
     .values({
       refreshToken,
       expiredDate,
-      user: id
+      user
     })
     .execute();
 
