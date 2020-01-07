@@ -8,6 +8,7 @@ import {
   username
 } from '../config/database';
 import UserT from './entity/user';
+import UserSession from './entity/userSession';
 
 export default (async function instance() {
   await createConnection({
@@ -17,6 +18,6 @@ export default (async function instance() {
     username,
     password,
     database,
-    entities: [UserT]
+    entities: [UserT, UserSession]
   });
 })();

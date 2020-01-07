@@ -20,11 +20,12 @@ matrix:
         postgresql: "10"
 
 install:
-  - npm install
+  - npm ci
+  - cd client && npm ci && cd ../
 
 cache: npm
 
 script:
+  - npm run build && cd client && npm run build && cd ../
   - npm run lint
   - npm run test
-  - npm run build

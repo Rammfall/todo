@@ -23,8 +23,11 @@ jobs:
 
       - save_cache:
           paths:
-            - node_modules
+          - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run test
+      - run: cd client && npm i && cd ../
+      - run: npm run build && cd client && npm run build && cd ../
+      - run: npm run db:migrate
       - run: npm run lint
+      - run: npm run test
