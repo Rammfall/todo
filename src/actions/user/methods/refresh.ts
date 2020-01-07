@@ -11,8 +11,7 @@ export default async (refreshToken: string) => {
     .getOne();
 
   if (session && session.expiredDate >= new Date()) {
-    // @ts-ignore
-    const { id } = session.user;
+    const { user } = session;
 
     await getConnection()
       .createQueryBuilder()
@@ -22,7 +21,7 @@ export default async (refreshToken: string) => {
       .execute();
 
     // eslint-disable-next-line no-return-await
-    return await login(id);
+    return await login(user);
   }
 
   throw new Error('Token not exist or expired');

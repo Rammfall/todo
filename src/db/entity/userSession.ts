@@ -20,5 +20,5 @@ export default class UserSession {
     () => User,
     (user: User) => user.id
   )
-  user: number;
+  user: User;
 }
