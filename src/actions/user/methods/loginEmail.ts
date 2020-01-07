@@ -9,11 +9,11 @@ export default async (email: string, password: string) => {
     .createQueryBuilder('user')
     .where('user.email = :email', { email })
     .getOne();
-  const { id, username } = user;
+  const { id } = user;
 
   if (await compare(password, user.password)) {
     // eslint-disable-next-line no-return-await
-    return await login(id, username);
+    return await login(id);
   }
 
   throw new Error('Password is wrong');

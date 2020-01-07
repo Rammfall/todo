@@ -14,15 +14,10 @@ export class userSession1578079061377 implements MigrationInterface {
         name: 'user_session',
         columns: [
           {
-            name: 'id',
-            type: 'serial',
-            isPrimary: true,
-            generationStrategy: 'increment'
-          },
-          {
             name: 'refreshToken',
             type: 'uuid',
             isUnique: true,
+            isPrimary: true,
             isNullable: false
           },
           {

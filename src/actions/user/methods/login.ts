@@ -11,8 +11,8 @@ import {
 import tokenizer from './utils/tokenizer';
 import UserSession from '../../../db/entity/userSession';
 
-export default async (id: number, username: string) => {
-  const accessToken: string = sign({ id, username }, jwtAccessSecret, {
+export default async (id: number) => {
+  const accessToken: string = sign({ id }, jwtAccessSecret, {
     expiresIn: jwtAccessExpiredTime
   });
   const refreshToken: string = v4();

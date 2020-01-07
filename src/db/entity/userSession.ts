@@ -1,15 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 // eslint-disable-next-line import/no-cycle
 import User from './user';
 
 @Entity()
 export default class UserSession {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column({
-    type: 'uuid'
+    type: 'uuid',
+    primary: true
   })
   refreshToken: string;
 
