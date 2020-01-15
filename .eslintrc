@@ -6,7 +6,8 @@
   "env": {
     "node": true,
     "es6": true,
-    "jest": true
+    "jest": true,
+    "browser": true
   },
   "extends": [
     "plugin:jest/recommended",
