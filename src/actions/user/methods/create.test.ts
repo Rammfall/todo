@@ -22,7 +22,7 @@ describe('Register user(write to DB)', () => {
   test(`Username ${userData.username} was registered`, async () => {
     const { username, email, password } = userData;
     const userResult = await create(username, email, password);
-    const { id } = userResult.identifiers[0];
+    const { id } = userResult;
     const user = await getUser(id);
 
     expect(id).toEqual(user.id);

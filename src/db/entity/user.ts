@@ -1,10 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  OneToMany
+} from 'typeorm';
 
 // eslint-disable-next-line import/no-cycle
 import UserSession from './userSession';
 
 @Entity()
-export default class UserT {
+export default class UserT extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
