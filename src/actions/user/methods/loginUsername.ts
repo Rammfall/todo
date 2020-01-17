@@ -11,7 +11,6 @@ export default async (username: string, password: string) => {
     .getOne();
 
   if (await compare(password, user.password)) {
-    // eslint-disable-next-line no-return-await
     return await login(user);
   }
 

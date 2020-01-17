@@ -10,7 +10,6 @@ export default async (refreshToken: string) => {
     .getOne();
 
   if (session) {
-    // eslint-disable-next-line no-return-await
     return await getConnection()
       .createQueryBuilder()
       .delete()
