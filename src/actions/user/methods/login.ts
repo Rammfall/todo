@@ -1,6 +1,5 @@
 import { sign } from 'jsonwebtoken';
 import { v4 } from 'uuid';
-import { getRepository } from 'typeorm';
 
 import {
   jwtAccessSecret,
@@ -22,20 +21,16 @@ export default async (user: User) => {
   const expiredDate: Date = new Date(
     tempDate.setTime(tempDate.getTime() + +refreshTokenExpired)
   );
+  const session: UserSession = new UserSession();
 
-  await getRepository(UserSession)
-    .createQueryBuilder('session')
-    .insert()
-    .into(UserSession)
-    .values({
-      refreshToken,
-      expiredDate,
-      user
-    })
-    .execute();
+  session.expiredDate = expiredDate;
+  session.refreshToken = refreshToken;
+  session.user = user;
+
+  const savedSession = await session.save();
 
   return {
     accessToken: tokenizer(accessToken, jwtAccessTokenWord),
-    refreshToken
+    refreshToken: savedSession.refreshToken
   };
 };
