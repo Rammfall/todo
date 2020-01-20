@@ -1,9 +1,9 @@
 import User from '../../src/db/entity/user';
 
 const createUser = async (
-  username: string,
-  email: string,
-  password: string
+  username: string = 'test',
+  email: string = 'test@test.te',
+  password: string = 'pass'
 ) => {
   const user: User = new User();
 

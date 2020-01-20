@@ -4,7 +4,6 @@ import validator from 'validator';
 import User from '../../../db/entity/user';
 import login from './login';
 import createUser from '../../../../testUtils/user/createUser';
-import '../../../db';
 import deleteUser from '../../../../testUtils/user/deleteUser';
 
 describe('Login logic with DB', () => {

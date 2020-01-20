@@ -1,7 +1,6 @@
 import { getConnection } from 'typeorm';
 
 import create from './create';
-import '../../../db';
 import getUser from '../../../../testUtils/user/getUser';
 import deleteUser from '../../../../testUtils/user/deleteUser';
 import User from '../../../db/entity/user';
