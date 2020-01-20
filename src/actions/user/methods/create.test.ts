@@ -18,11 +18,6 @@ describe('Register user(write to DB)', () => {
     await getConnection().connect();
   });
 
-  afterAll(async () => {
-    await deleteUser(user);
-    await getConnection().close();
-  });
-
   test(`Username ${userData.username} was registered`, async () => {
     const { username, email, password } = userData;
     const userResult = await create(username, email, password);
@@ -30,5 +25,10 @@ describe('Register user(write to DB)', () => {
     user = await getUser(id);
 
     expect(id).toEqual(user.id);
+  });
+
+  afterAll(async () => {
+    await deleteUser(user);
+    await getConnection().close();
   });
 });

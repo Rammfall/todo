@@ -18,6 +18,7 @@ export default (async function instance() {
     username,
     password,
     database,
-    entities: [UserT, UserSession]
+    entities: [UserT, UserSession],
+    logger: 'simple-console'
   });
 })();
