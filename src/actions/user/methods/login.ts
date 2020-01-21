@@ -31,6 +31,7 @@ export default async (user: User) => {
 
   return {
     accessToken: tokenizer(accessToken, jwtAccessTokenWord),
-    refreshToken: savedSession.refreshToken
+    refreshToken: savedSession.refreshToken,
+    session
   };
 };

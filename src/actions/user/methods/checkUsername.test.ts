@@ -10,7 +10,11 @@ describe('Check user exist on email', () => {
 
   beforeAll(async () => {
     await getConnection().connect();
-    user = await createUser('testCheckEMail', 'testCheck@test.te', 'pass');
+    user = await createUser(
+      'testCheckUsername',
+      'testCheckUsername@test.te',
+      'pass'
+    );
   });
 
   test('If exist return true', async () => {
