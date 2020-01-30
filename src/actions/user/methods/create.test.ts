@@ -1,9 +1,8 @@
 import { getConnection } from 'typeorm';
 
 import create from './create';
-import getUser from '../../../../testUtils/user/getUser';
-import deleteUser from '../../../../testUtils/user/deleteUser';
 import User from '../../../db/entity/user';
+import { getUser, deleteUser } from '../../../../testUtils/user';
 
 describe('Register user(write to DB)', () => {
   const userData = {

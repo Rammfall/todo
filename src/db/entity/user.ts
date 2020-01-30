@@ -8,6 +8,8 @@ import {
 
 // eslint-disable-next-line import/no-cycle
 import UserSession from './userSession';
+// eslint-disable-next-line import/no-cycle
+import Project from './project';
 
 @Entity()
 export default class UserT extends BaseEntity {
@@ -36,4 +38,10 @@ export default class UserT extends BaseEntity {
     (session: UserSession) => session.user
   )
   sessions: UserSession[];
+
+  @OneToMany(
+    () => Project,
+    (project: Project) => project.user
+  )
+  projects: Project[];
 }

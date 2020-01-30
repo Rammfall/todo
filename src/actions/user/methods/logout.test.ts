@@ -1,11 +1,13 @@
 import { getConnection } from 'typeorm';
 
-import createSession from '../../../../testUtils/user/createSession';
 import User from '../../../db/entity/user';
-import createUser from '../../../../testUtils/user/createUser';
-import deleteUser from '../../../../testUtils/user/deleteUser';
 import UserSession from '../../../db/entity/userSession';
 import logout from './logout';
+import {
+  createUser,
+  deleteUser,
+  createSession
+} from '../../../../testUtils/user';
 
 describe('Logout user', () => {
   let user: User;

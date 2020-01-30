@@ -3,8 +3,7 @@ import validator from 'validator';
 
 import User from '../../../db/entity/user';
 import login from './login';
-import createUser from '../../../../testUtils/user/createUser';
-import deleteUser from '../../../../testUtils/user/deleteUser';
+import { createUser, deleteUser } from '../../../../testUtils/user';
 
 describe('Login logic with DB', () => {
   let user: User;
