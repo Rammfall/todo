@@ -20,7 +20,6 @@ export default async (refreshToken: string) => {
       .where('refreshToken = :refreshToken', { refreshToken })
       .execute();
 
-    // eslint-disable-next-line no-return-await
     return await login(user);
   }
 

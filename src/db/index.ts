@@ -9,6 +9,7 @@ import {
 } from '../config/database';
 import UserT from './entity/user';
 import UserSession from './entity/userSession';
+import Project from './entity/project';
 
 export default (async function instance() {
   await createConnection({
@@ -18,6 +19,7 @@ export default (async function instance() {
     username,
     password,
     database,
-    entities: [UserT, UserSession]
+    entities: [UserT, UserSession, Project],
+    logger: 'simple-console'
   });
 })();

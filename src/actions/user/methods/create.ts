@@ -1,18 +1,10 @@
-import { getRepository } from 'typeorm';
-
-import UserT from '../../../db/entity/user';
+import User from '../../../db/entity/user';
 
 export default async (username: string, email: string, password: string) => {
-  const user = await getRepository(UserT)
-    .createQueryBuilder('user')
-    .insert()
-    .into(UserT)
-    .values({
-      username,
-      email,
-      password
-    })
-    .execute();
+  const user: User = new User();
+  user.username = username;
+  user.email = email;
+  user.password = password;
 
-  return user;
+  return await user.save();
 };

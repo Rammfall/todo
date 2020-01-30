@@ -1,10 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  OneToMany
+} from 'typeorm';
 
 // eslint-disable-next-line import/no-cycle
 import UserSession from './userSession';
+// eslint-disable-next-line import/no-cycle
+import Project from './project';
 
 @Entity()
-export default class UserT {
+export default class UserT extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,4 +38,10 @@ export default class UserT {
     (session: UserSession) => session.user
   )
   sessions: UserSession[];
+
+  @OneToMany(
+    () => Project,
+    (project: Project) => project.user
+  )
+  projects: Project[];
 }

@@ -5,8 +5,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: resolve(__dirname, '../public'),
-    filename: 'js/[name].js',
-    publicPath: '/static/'
+    filename: 'js/[name].js'
   },
   devServer: {
     historyApiFallback: true

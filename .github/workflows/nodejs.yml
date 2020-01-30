@@ -43,5 +43,6 @@ jobs:
         dbName: postgres
         dbPassword:
       run: |
+        npm audit
         npm run lint
         npm test
