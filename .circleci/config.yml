@@ -28,6 +28,7 @@ jobs:
 
       - run: cd client && npm ci && cd ../
       - run: npm run build && cd client && npm run build && cd ../
+      - run: npm audit
       - run: npm run db:migrate
       - run: npm run lint
       - run: npm run test
