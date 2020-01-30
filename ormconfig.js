@@ -1,5 +1,5 @@
 const { dbHost, dbPort, dbUser, dbPassword, dbName, environment } = process.env;
-const ssl = environment === 'staging' || 'production';
+const ssl = environment === 'staging' || environment === 'production';
 
 module.exports = {
   type: 'postgres',
