@@ -16,5 +16,8 @@ module.exports = {
     entitiesDir: 'src/db/entity',
     migrationsDir: 'src/db/migration',
     subscribersDir: 'src/db/subscriber'
+  },
+  extra: {
+    ssl: true
   }
 };

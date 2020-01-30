@@ -20,6 +20,9 @@ export default (async function instance() {
     password,
     database,
     entities: [UserT, UserSession, Project],
-    logger: 'simple-console'
+    logger: 'simple-console',
+    extra: {
+      ssl: true
+    }
   });
 })();
