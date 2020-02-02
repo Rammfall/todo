@@ -10,7 +10,7 @@ describe('Login logic with DB', () => {
 
   beforeAll(async () => {
     await getConnection().connect();
-    user = await createUser('testUser', 'test@test.email', 'pass');
+    user = await createUser('testLoginUser', 'test@login.email', 'pass');
   });
 
   afterAll(async () => {
