@@ -4,8 +4,9 @@ import request from 'supertest';
 import User from '../../../db/entity/user';
 import register from '../../../application';
 
-describe('All user tests for api', () => {
+describe('Register on api', () => {
   let user: User;
+
   beforeAll(async () => {
     await getConnection().connect();
   });
@@ -21,7 +22,6 @@ describe('All user tests for api', () => {
 
   afterAll(async () => {
     await user.remove();
-
     await getConnection().close();
   });
 });
