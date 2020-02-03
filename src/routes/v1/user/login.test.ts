@@ -5,31 +5,41 @@ import request from 'supertest';
 import User from '../../../db/entity/user';
 import UserSession from '../../../db/entity/userSession';
 import login from '../../../application';
-import { createUser, deleteUser } from '../../../../testUtils/user';
 
 describe('Login on api', () => {
   let user: User;
-  const password = 'pass';
 
   beforeAll(async () => {
     await getConnection().connect();
-    user = await createUser('apiLoginUser', 'api@login.user', password);
   });
 
   test('Login on api route /login/', async () => {
+    await request(login)
+      .post('/api/v1/user/register/')
+      .send({
+        username: 'apiLoginUser',
+        email: 'api@login.user',
+        password: 'pass'
+      });
+
+    user = await User.findOne({ username: 'apiLoginUser' });
+
     const result = await request(login)
       .post('/api/v1/user/login/')
-      .send({ name: 'apiLoginUser', password });
-    const { refreshToken, accessToken } = result.body;
+      .send({
+        name: 'apiLoginUser',
+        password: 'pass'
+      });
+    const { refreshToken, accessToken } = result.body.auth;
     const session: UserSession = await UserSession.findOne({ user });
 
-    expect(session.user.id).toEqual(user.id);
-    expect(validator.isJWT(accessToken)).toEqual(true);
+    expect(session.refreshToken).toEqual(refreshToken);
+    expect(validator.isJWT(accessToken.split(' ')[1])).toEqual(true);
     expect(validator.isUUID(refreshToken)).toEqual(true);
   });
 
   afterAll(async () => {
-    await deleteUser(user);
+    await user.remove();
     await getConnection().close();
   });
 });
