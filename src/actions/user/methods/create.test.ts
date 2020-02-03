@@ -6,8 +6,8 @@ import { getUser, deleteUser } from '../../../../testUtils/user';
 
 describe('Register user(write to DB)', () => {
   const userData = {
-    username: 'testUser',
-    email: 'test@test.te',
+    username: 'testCreateUser',
+    email: 'test@create.te',
     password: 'pass'
   };
   let user: User;

@@ -16,7 +16,7 @@ describe('Logout user', () => {
 
   beforeAll(async () => {
     await getConnection().connect();
-    user = await createUser('testLogout', 'testLogout@test.email', 'pass');
+    user = await createUser('testRefresh', 'testLogout@refresh.email', 'pass');
     session = await createSession(user);
   });
 
