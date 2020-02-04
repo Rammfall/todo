@@ -69,8 +69,10 @@
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
+    "node-sass": "^4.13.1",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
+    "sass-loader": "^8.0.2",
     "typeorm": "^0.2.21",
     "uuid": "^3.3.3",
     "validator": "^12.1.0"
