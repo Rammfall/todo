@@ -8,7 +8,14 @@ module.exports = {
     filename: 'js/[name].js'
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '**': {
+        target: 'http://localhost:3001',
+        secure: false
+      }
+    }
+    // host: '3001'
   },
   mode: 'development' || process.env.env,
   module: {

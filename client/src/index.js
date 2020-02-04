@@ -1,10 +1,20 @@
 import ReactDOM from 'react-dom';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 const root = document.getElementById('root');
-class MyComponent extends PureComponent {
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      res: 4
+    };
+  }
+
   render() {
-    return <div>Hello World</div>;
+    const { res } = this.state;
+
+    return <div>{res}</div>;
   }
 }
 
