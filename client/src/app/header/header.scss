@@ -9,7 +9,8 @@
 
 .header__container {
   align-items: center;
-  display: flex;
+  background-image: linear-gradient(to bottom, #000, #fff);
+  display: grid;
   justify-content: space-between;
 }
 
