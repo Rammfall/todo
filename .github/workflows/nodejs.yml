@@ -25,9 +25,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and build
       env:
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
         CI: true
         dbUser: postgres
         dbName: postgres
+        dbPort: 5432
         dbPassword:
       run: |
         npm ci
