@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 const { DefinePlugin } = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,14 +9,22 @@ const environment = process.env.environment || 'development';
 const assetPath = process.env.assetPath || '../public';
 
 module.exports = env => {
+  const miniCssExtractLoader = {
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+      publicPath: '../public/css/',
+      hmr: process.env.NODE_ENV === 'development'
+    }
+  };
+
   return merge({
     entry: './src/index.js',
     output: {
       path: resolve(__dirname, '../public'),
-      filename: 'js/[name].[hash].js',
-      publicPath: assetPath
+      filename: 'js/[name].[hash].js'
     },
     devServer: {
+      contentBase: join(__dirname, 'assets'),
       historyApiFallback: true,
       proxy: {
         '/api': {
@@ -42,8 +50,8 @@ module.exports = env => {
         {
           test: /\.scss$/,
           use: [
-            env.environment !== 'development'
-              ? MiniCssExtractPlugin.loader
+            env !== undefined && env.environment !== 'development'
+              ? miniCssExtractLoader
               : 'style-loader',
             'css-loader',
             'postcss-loader',
@@ -62,7 +70,8 @@ module.exports = env => {
         filename: 'index.html'
       }),
       new MiniCssExtractPlugin({
-        filename: '[name].[hash].css'
+        filename: '[name].[hash].css',
+        chunkFilename: '[id].[hash].css'
       }),
       new DefinePlugin({
         'process.env.host': process.env.frontHost,
@@ -82,7 +91,10 @@ module.exports = env => {
           },
           extractComments: false
         })
-      ]
+      ],
+      runtimeChunk: {
+        name: entrypoint => `runtime~${entrypoint.name}`
+      }
     }
   });
 };

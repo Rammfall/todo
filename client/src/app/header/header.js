@@ -10,7 +10,7 @@ export default class Header extends PureComponent {
         <header className="header">
           <div className="container header__container">
             <Link to="/" className="header__logo">
-              ToDoRes
+              ToDoResa
             </Link>
             <nav>
               <ul className="nav">

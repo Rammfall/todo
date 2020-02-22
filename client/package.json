@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "rimraf ../public &&  webpack-cli --mode production --env.environment=production",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --env.environment=development"
   },
   "author": "Onatskyi Bo",
   "license": "MIT",

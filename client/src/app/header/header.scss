@@ -2,15 +2,14 @@
   box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
   left: 0;
   padding: 15px 0;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 }
 
 .header__container {
   align-items: center;
-  background-image: linear-gradient(to bottom, #000, #fff);
-  display: grid;
+  display: flex;
   justify-content: space-between;
 }
 

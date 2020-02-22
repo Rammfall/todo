@@ -1,3 +1,4 @@
+import { join } from 'path';
 import express, { Request, Response, Router } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -16,12 +17,14 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(compression());
 app.use(helmet());
+app.get('/', express.static(join(__dirname, 'public')));
 
 rootRouter.get('/', (req: Request, res: Response) => {
-  res.json({ status: 200 });
+  res.sendFile(join(`${__dirname}/../public/index.html`));
 });
 
 app.use('/', rootRouter);
+app.use('/', express.static('./public/'));
 app.use('/api', applicationRouter);
 
 export default app;
