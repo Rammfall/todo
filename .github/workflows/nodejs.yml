@@ -11,6 +11,9 @@ jobs:
     services:
       postgres:
         image: postgres:10
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
         ports: ["5432:5432"]
 
     strategy:
@@ -25,13 +28,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and build
       env:
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
         CI: true
         dbUser: postgres
         dbName: postgres
         dbPort: 5432
-        dbPassword:
+        dbPassword: postgres
       run: |
         npm ci
         npm run build
