@@ -5,31 +5,24 @@ import request from 'supertest';
 import User from '../../../db/entity/user';
 import UserSession from '../../../db/entity/userSession';
 import login from '../../../application';
+import { createUser, deleteUser } from '../../../../testUtils/user';
 
 describe('Login on api', () => {
   let user: User;
 
   beforeAll(async () => {
     await getConnection().connect();
+    user = await createUser('apiLoginUser', 'api@login.user', 'pass');
   });
 
-  test('Login on api route /login/', async () => {
-    await request(login)
-      .post('/api/v1/user/register/')
-      .send({
-        username: 'apiLoginUser',
-        email: 'api@login.user',
-        password: 'pass'
-      });
-
-    user = await User.findOne({ username: 'apiLoginUser' });
-
+  test('Login on api route /login/ success', async () => {
     const result = await request(login)
       .post('/api/v1/user/login/')
       .send({
         name: 'apiLoginUser',
         password: 'pass'
       });
+
     const { refreshToken, accessToken } = result.body.auth;
     const session: UserSession = await UserSession.findOne({ user });
 
@@ -38,8 +31,21 @@ describe('Login on api', () => {
     expect(validator.isUUID(refreshToken)).toEqual(true);
   });
 
+  test('Login on api route /login/ error with wrong password', async () => {
+    const result = await request(login)
+      .post('/api/v1/user/login/')
+      .send({
+        name: 'apiLoginUser',
+        password: 'pass1'
+      });
+
+    const { info } = result.body;
+
+    expect(info).toEqual('Password is wrong');
+  });
+
   afterAll(async () => {
-    await user.remove();
+    await deleteUser(user);
     await getConnection().close();
   });
 });

@@ -11,6 +11,10 @@ jobs:
     services:
       postgres:
         image: postgres:10
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports: ["5432:5432"]
 
     strategy:
@@ -28,7 +32,7 @@ jobs:
         CI: true
         dbUser: postgres
         dbName: postgres
-        dbPassword:
+        dbPassword: postgres
       run: |
         npm ci
         npm run build
@@ -41,7 +45,7 @@ jobs:
         CI: true
         dbUser: postgres
         dbName: postgres
-        dbPassword:
+        dbPassword: postgres
       run: |
         npm audit
         npm run lint
