@@ -32,7 +32,6 @@ jobs:
         CI: true
         dbUser: postgres
         dbName: postgres
-        dbPort: 5432
         dbPassword: postgres
       run: |
         npm ci
@@ -46,7 +45,7 @@ jobs:
         CI: true
         dbUser: postgres
         dbName: postgres
-        dbPassword:
+        dbPassword: postgres
       run: |
         npm audit
         npm run lint
