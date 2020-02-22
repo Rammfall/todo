@@ -8,6 +8,12 @@ import {
   username
 } from '../config/database';
 import UserT from './entity/user';
+import UserSession from './entity/userSession';
+import Project from './entity/project';
+
+const ssl =
+  process.env.environment === 'staging' ||
+  process.env.environment === 'production';
 
 export default (async function instance() {
   await createConnection({
@@ -17,6 +23,10 @@ export default (async function instance() {
     username,
     password,
     database,
-    entities: [UserT]
+    entities: [UserT, UserSession, Project],
+    logger: 'simple-console',
+    extra: {
+      ssl
+    }
   });
 })();

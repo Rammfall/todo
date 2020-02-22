@@ -1,18 +1,15 @@
-import { getRepository } from 'typeorm';
+import { hash } from 'bcrypt';
 
-import UserT from '../../../db/entity/user';
+import User from '../../../db/entity/user';
+import { bcryptRoundSalt } from '../../../config/application';
 
 export default async (username: string, email: string, password: string) => {
-  const user = await getRepository(UserT)
-    .createQueryBuilder('user')
-    .insert()
-    .into(UserT)
-    .values({
-      username,
-      email,
-      password
-    })
-    .execute();
+  const user: User = new User();
+  const hashPassword: string = await hash(password, bcryptRoundSalt);
 
-  return user;
+  user.username = username;
+  user.email = email;
+  user.password = hashPassword;
+
+  return await user.save();
 };

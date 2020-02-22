@@ -11,6 +11,10 @@ jobs:
     services:
       postgres:
         image: postgres:10
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports: ["5432:5432"]
 
     strategy:
@@ -23,14 +27,26 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm ci
-        npm run build --if-present
-        npm run lint
-        npm test
+    - name: npm install and build
       env:
         CI: true
         dbUser: postgres
         dbName: postgres
-        dbPassword:
+        dbPassword: postgres
+      run: |
+        npm ci
+        npm run build
+        npm run db:migrate
+        cd client
+        npm ci
+        npm run build
+    - name: lint test
+      env:
+        CI: true
+        dbUser: postgres
+        dbName: postgres
+        dbPassword: postgres
+      run: |
+        npm audit
+        npm run lint
+        npm test

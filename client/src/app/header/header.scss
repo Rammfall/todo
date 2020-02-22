@@ -1,0 +1,27 @@
+.header {
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  left: 0;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.header__container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-size: 24px;
+}
+
+.nav {
+  display: flex;
+}
+
+.nav__item {
+  list-style: none;
+  margin-left: 15px;
+}

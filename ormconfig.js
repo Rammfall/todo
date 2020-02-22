@@ -1,4 +1,5 @@
-const { dbHost, dbPort, dbUser, dbPassword, dbName } = process.env;
+const { dbHost, dbPort, dbUser, dbPassword, dbName, environment } = process.env;
+const ssl = environment === 'staging' || environment === 'production';
 
 module.exports = {
   type: 'postgres',
@@ -16,5 +17,8 @@ module.exports = {
     entitiesDir: 'src/db/entity',
     migrationsDir: 'src/db/migration',
     subscribersDir: 'src/db/subscriber'
+  },
+  extra: {
+    ssl
   }
 };

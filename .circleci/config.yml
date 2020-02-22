@@ -9,8 +9,12 @@ jobs:
         environment:
           dbUser: postgres
           dbName: postgres
-          dbPassword:
+          dbPassword: PASS
       - image: circleci/postgres:latest-postgis
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: PASS
     working_directory: ~/todo
     steps:
       - checkout
@@ -19,12 +23,16 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: npm install
+      - run: npm ci
 
       - save_cache:
           paths:
-            - node_modules
+          - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run test
+      - run: cd client && npm ci && cd ../
+      - run: npm run build && cd client && npm run build && cd ../
+      - run: npm audit
+      - run: npm run db:migrate
       - run: npm run lint
+      - run: npm run test
