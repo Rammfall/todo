@@ -11,6 +11,9 @@ jobs:
           dbName: postgres
           dbPassword:
       - image: circleci/postgres:latest-postgis
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
     working_directory: ~/todo
     steps:
       - checkout
