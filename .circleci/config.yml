@@ -92,6 +92,7 @@ jobs:
     steps:
       - checkout
       - install-dependencies
+      - setup_db
       - tests
 workflows:
   version: 2.1
