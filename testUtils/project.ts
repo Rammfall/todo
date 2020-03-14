@@ -6,5 +6,5 @@ export const createProject = async (user: User, name: string) => {
   const project = new Project();
   project.name = name;
   project.user = user;
-  await project.save();
+  return await project.save();
 };

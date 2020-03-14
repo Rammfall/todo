@@ -1,6 +1,6 @@
 import { compare } from 'bcrypt';
 
-import User from '../../../db/entity/user';
+import User from '../../../../db/entity/user';
 import login from './login';
 
 export default async (email: string, password: string) => {

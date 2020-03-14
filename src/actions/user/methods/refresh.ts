@@ -1,7 +1,7 @@
 import { getConnection, getRepository } from 'typeorm';
 
 import UserSession from '../../../db/entity/userSession';
-import login from './login';
+import login from './login/login';
 
 export default async (refreshToken: string) => {
   const session: UserSession = await getRepository(UserSession)

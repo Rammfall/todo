@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import register from '../../../actions/user/register';
+import update from '../../../actions/project/update';
 
 const router = Router();
 
-router.post('/', register);
+router.post('/', update);
 
 export default router;

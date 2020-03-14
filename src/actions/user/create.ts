@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 
-import checkEmail from './methods/checkEmail';
-import checkUsername from './methods/checkUsername';
+import checkEmail from './methods/checkers/checkEmail';
+import checkUsername from './methods/checkers/checkUsername';
 import createUser from './methods/create';
 
 export default async (req: Request, res: Response) => {
@@ -13,6 +13,6 @@ export default async (req: Request, res: Response) => {
     res.status(403).json({ info: 'Email are exist' });
   } else {
     const user = await createUser(username, email, password);
-    res.json({ user });
+    res.json({ username: user.username, email: user.email, id: user.id });
   }
 };
