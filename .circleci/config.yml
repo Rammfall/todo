@@ -1,4 +1,25 @@
-version: 2
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/todo
+    docker:
+      - image: circleci/node:10.17
+        environment:
+          dbUser: postgres
+          dbName: postgres
+          dbPassword: PASS
+      - image: circleci/postgres:latest-postgis
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: PASS
+caches:
+  - &npm_cache v1-npm-deps-{{ checksum "package-lock.json" }}
+
+
+
+
 jobs:
   build:
     branches:
@@ -27,7 +48,7 @@ jobs:
 
       - save_cache:
           paths:
-          - node_modules
+            - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: cd client && npm ci && cd ../
