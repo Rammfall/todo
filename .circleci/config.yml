@@ -31,8 +31,8 @@ commands:
   audit:
     steps:
       - run: |
-          npm audit \
-          cd client \
+          npm audit
+          cd client
           npm audit
   setup_db:
     steps:
