@@ -1,9 +1,8 @@
-version: 2
-jobs:
-  build:
-    branches:
-      only:
-        - /.*/
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/todo
     docker:
       - image: circleci/node:10.17
         environment:
@@ -15,24 +14,119 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: PASS
-    working_directory: ~/todo
+caches:
+  - &npm_cache v1-npm-deps-{{ checksum "package-lock.json" }}
+commands:
+  install-dependencies:
+    steps:
+      - restore_cache:
+          key: *npm_cache
+      - run: npm i
+      - run: cd client && npm i
+      - save_cache:
+          key: *npm_cache
+          paths:
+            - ./node_modules
+            - ./client/node_modules
+  audit:
+    steps:
+      - run: |
+          npm audit \
+          cd client \
+          npm audit
+  setup_db:
+    steps:
+      - run: |
+          npm run db:migrate
+  build_client:
+    steps:
+      - run: cd client && npm run build
+  build_server:
+    steps:
+      - run: npm run build
+  linters:
+    steps:
+      - run: npm run lint
+  tests:
+    steps:
+      - run: npm run test
+jobs:
+  install-dependencies:
+    executor: default
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: npm ci
-
-      - save_cache:
-          paths:
-          - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: cd client && npm ci && cd ../
-      - run: npm run build && cd client && npm run build && cd ../
-      - run: npm audit
-      - run: npm run db:migrate
-      - run: npm run lint
-      - run: npm run test
+      - install-dependencies
+  audit:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+      - audit
+  setup_db:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+      - setup_db
+  build_client:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+      - build_client
+    linters:
+  build_server:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+      - build_server
+  linters:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+      - linters
+  tests:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+      - setup_db
+      - tests
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - install-dependencies
+      - audit:
+          requires:
+            - install-dependencies
+      - setup_db:
+          requires:
+            - install-dependencies
+      - build_client:
+          requires:
+            - install-dependencies
+      - build_server:
+          requires:
+            - install-dependencies
+      - linters:
+          requires:
+            - build_server
+            - build_client
+      - tests:
+          requires:
+            - build_server
+            - build_client
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+    jobs:
+      - audit
