@@ -16,7 +16,7 @@ export default async (req: Request, res: Response) => {
         const auth = await loginEmail(name, password);
         const { accessToken, refreshToken } = auth;
 
-        res.cookie('accessCookie', accessToken, {
+        res.cookie('accessToken', accessToken, {
           maxAge: refreshTokenExpired,
           httpOnly: true
         });
@@ -24,6 +24,7 @@ export default async (req: Request, res: Response) => {
           maxAge: refreshTokenExpired,
           httpOnly: true
         });
+        res.json({});
       } catch (e) {
         res.status(403).json({ info: e.message });
       }
@@ -35,7 +36,7 @@ export default async (req: Request, res: Response) => {
       const auth = await loginUsername(name, password);
       const { accessToken, refreshToken } = auth;
 
-      res.cookie('accessCookie', accessToken, {
+      res.cookie('accessToken', accessToken, {
         maxAge: refreshTokenExpired,
         httpOnly: true
       });
@@ -43,6 +44,7 @@ export default async (req: Request, res: Response) => {
         maxAge: refreshTokenExpired,
         httpOnly: true
       });
+      res.json({});
     } catch (e) {
       res.status(403).json({ info: e.message });
     }
