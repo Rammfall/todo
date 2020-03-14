@@ -1,5 +1,6 @@
 import User from '../../../db/entity/user';
 import Project from '../../../db/entity/project';
+import { ordering } from '../../../config/database';
 
 export default async (id: number, take: number = 20, skip: number = 0) => {
   const user = await User.findOne({ id });
@@ -12,7 +13,7 @@ export default async (id: number, take: number = 20, skip: number = 0) => {
       take,
       skip,
       order: {
-        id: 'DESC'
+        id: ordering
       }
     });
 

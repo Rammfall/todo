@@ -18,8 +18,8 @@ describe('The user get all own projects', () => {
   test('All own projects to be send', async () => {
     const projects = await all(user.id);
 
-    expect(projects[0].name).toEqual('test');
-    expect(projects[1].name).toEqual('test1');
+    expect(projects[0].name).toEqual('test1');
+    expect(projects[1].name).toEqual('test');
   });
 
   afterAll(async () => {
