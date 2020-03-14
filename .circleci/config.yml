@@ -50,6 +50,37 @@ commands:
   tests:
     steps:
       - run: npm run test
+jobs:
+  install-dependencies:
+    executor: default
+    steps:
+      - checkout
+      - install-dependencies
+  audit:
+    executor: default
+    steps:
+      - checkout
+      - audit
+  setup_db:
+    executor: default
+    steps:
+      - checkout
+      - setup_db
+  build_server:
+    executor: default
+    steps:
+      - checkout
+      - build_server
+  linters:
+    executor: default
+    steps:
+      - checkout
+      - linters
+  tests:
+    executor: default
+    steps:
+      - checkout
+      - tests
 workflows:
   version: 2.1
   build: &default
