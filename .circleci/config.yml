@@ -66,6 +66,12 @@ jobs:
     steps:
       - checkout
       - setup_db
+  build_client:
+    executor: default
+    steps:
+      - checkout
+      - setup_db
+    linters:
   build_server:
     executor: default
     steps:
