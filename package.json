@@ -10,7 +10,7 @@
     "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
     "db:revert": "ts-node ./node_modules/.bin/typeorm migration:revert",
     "db:reboot": "npm run db:revert && npm run db:migrate",
-    "build": "rimraf dist && tsc && npm run db:migrate",
+    "build": "rimraf dist && tsc",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
     "lint:css": "stylelint \"client/**/*.scss\" --fix",
