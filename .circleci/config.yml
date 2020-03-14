@@ -83,7 +83,7 @@ jobs:
       - tests
 workflows:
   version: 2.1
-  build: &default
+  build:
     jobs:
       - install-dependencies
       - audit:
@@ -110,4 +110,3 @@ workflows:
     triggers:
       - schedule:
           cron: "0 0 * * *"
-    <<: *default
