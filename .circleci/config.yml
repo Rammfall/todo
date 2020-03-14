@@ -31,13 +31,13 @@ commands:
   audit:
     steps:
       - run: |
-        npm audit \
-        cd client \
-        npm audit
+          npm audit \
+          cd client \
+          npm audit
   setup_db:
     steps:
       - run: |
-        npm run db:migrate
+          npm run db:migrate
   build_client:
     steps:
       - run: cd client && npm run build
