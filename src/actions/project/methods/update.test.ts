@@ -17,7 +17,7 @@ describe('User can to update project', () => {
   });
 
   test('User can to create project', async () => {
-    await update(user.id, 'new test');
+    await update(project, 'new test');
 
     expect(project.name).toEqual('new test');
   });

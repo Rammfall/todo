@@ -1,15 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  BaseEntity,
-  OneToMany
-} from 'typeorm';
-
-// eslint-disable-next-line import/no-cycle
-import UserSession from './userSession';
-// eslint-disable-next-line import/no-cycle
-import Project from './project';
+import { Column, Entity, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 
 @Entity()
 export default class UserT extends BaseEntity {
@@ -32,16 +21,4 @@ export default class UserT extends BaseEntity {
     type: 'varchar'
   })
   password: string;
-
-  @OneToMany(
-    () => UserSession,
-    (session: UserSession) => session.user
-  )
-  sessions: UserSession[];
-
-  @OneToMany(
-    () => Project,
-    (project: Project) => project.user
-  )
-  projects: Project[];
 }

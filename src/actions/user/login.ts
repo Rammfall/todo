@@ -13,8 +13,7 @@ export default async (req: Request, res: Response) => {
   if (validator.isEmail(name)) {
     if (await checkEmail(name)) {
       try {
-        const auth = await loginEmail(name, password);
-        const { accessToken, refreshToken } = auth;
+        const { accessToken, refreshToken } = await loginEmail(name, password);
 
         res.cookie('accessToken', accessToken, {
           maxAge: refreshTokenExpired,
@@ -33,8 +32,7 @@ export default async (req: Request, res: Response) => {
     }
   } else if (await checkUsername(name)) {
     try {
-      const auth = await loginUsername(name, password);
-      const { accessToken, refreshToken } = auth;
+      const { accessToken, refreshToken } = await loginUsername(name, password);
 
       res.cookie('accessToken', accessToken, {
         maxAge: refreshTokenExpired,

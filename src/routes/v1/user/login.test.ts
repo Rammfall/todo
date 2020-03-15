@@ -25,6 +25,7 @@ describe('Login on api', () => {
         name: username,
         password
       });
+
     const accessCookie = result.header['set-cookie'][0];
     const accessToken = accessCookie.slice(13, accessCookie.indexOf(';'));
     const refreshCookie = result.header['set-cookie'][1];
@@ -34,6 +35,7 @@ describe('Login on api', () => {
     expect(session.refreshToken).toEqual(refreshToken);
     expect(validator.isJWT(accessToken.split('%20')[1])).toEqual(true);
     expect(validator.isUUID(refreshToken)).toEqual(true);
+    expect(result.status).toEqual(200);
     await session.remove();
   });
 
@@ -53,6 +55,7 @@ describe('Login on api', () => {
     expect(session.refreshToken).toEqual(refreshToken);
     expect(validator.isJWT(accessToken.split('%20')[1])).toEqual(true);
     expect(validator.isUUID(refreshToken)).toEqual(true);
+    expect(result.status).toEqual(200);
     await session.remove();
   });
 
@@ -67,6 +70,7 @@ describe('Login on api', () => {
     const { info } = result.body;
 
     expect(info).toEqual('Password is wrong');
+    expect(result.status).toEqual(403);
   });
 
   test('Login with email on api route /login/ error with wrong password', async () => {
@@ -80,6 +84,7 @@ describe('Login on api', () => {
     const { info } = result.body;
 
     expect(info).toEqual('Password is wrong');
+    expect(result.status).toEqual(403);
   });
 
   afterAll(async () => {

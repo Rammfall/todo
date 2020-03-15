@@ -21,12 +21,13 @@ describe('Logout user', () => {
   });
 
   test('When we refresh, we delete current session and create new', async () => {
-    const { refreshToken } = session;
-    const newSession = await refresh(refreshToken);
-    const { accessToken } = newSession;
+    const newSession = await refresh(session);
+    const { accessToken, refreshToken } = newSession;
 
-    expect(await UserSession.findOne({ refreshToken })).toEqual(undefined);
-    expect(validator.isUUID(newSession.refreshToken, '4')).toEqual(true);
+    expect(
+      await UserSession.findOne({ refreshToken: session.refreshToken })
+    ).toEqual(undefined);
+    expect(validator.isUUID(refreshToken, '4')).toEqual(true);
     expect(
       validator.isJWT(accessToken.substring(accessToken.indexOf(' ') + 1))
     ).toEqual(true);
