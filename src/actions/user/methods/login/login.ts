@@ -6,10 +6,10 @@ import {
   jwtAccessExpiredTime,
   jwtAccessTokenWord,
   refreshTokenExpired
-} from '../../../config/application';
-import tokenizer from './utils/tokenizer';
-import UserSession from '../../../db/entity/userSession';
-import User from '../../../db/entity/user';
+} from '../../../../config/application';
+import tokenizer from '../utils/tokenizer';
+import UserSession from '../../../../db/entity/userSession';
+import User from '../../../../db/entity/user';
 
 export default async (user: User) => {
   const { id, username } = user;

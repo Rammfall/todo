@@ -1,24 +1,11 @@
-import { getConnection, getRepository } from 'typeorm';
-
 import UserSession from '../../../db/entity/userSession';
-import login from './login';
+import login from './login/login';
 
-export default async (refreshToken: string) => {
-  const session: UserSession = await getRepository(UserSession)
-    .createQueryBuilder('session')
-    .where('session.refreshToken = :refreshToken', { refreshToken })
-    .leftJoinAndSelect('session.user', 'user')
-    .getOne();
-
+export default async (session: UserSession) => {
   if (session && session.expiredDate >= new Date()) {
     const { user } = session;
 
-    await getConnection()
-      .createQueryBuilder()
-      .delete()
-      .from(UserSession)
-      .where('refreshToken = :refreshToken', { refreshToken })
-      .execute();
+    await session.remove();
 
     return await login(user);
   }

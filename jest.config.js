@@ -1,9 +1,11 @@
+process.env.dbName = process.env.dbName || 'todo_test';
+
 module.exports = {
   clearMocks: true,
   coverageDirectory: 'coverage',
   roots: ['<rootDir>/src'],
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['\\\\node_modules\\\\', './client'],
+  testPathIgnorePatterns: ['\\\\node_modules\\\\'],
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },

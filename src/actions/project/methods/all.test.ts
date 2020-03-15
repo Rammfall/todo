@@ -11,15 +11,33 @@ describe('The user get all own projects', () => {
   beforeAll(async () => {
     await getConnection().connect();
     user = await createUser('testAllProject', 'testAllMail@mail.gd', 'pass');
-    await createProject(user, 'test');
-    await createProject(user, 'test1');
+    for (let i = 0; i < 30; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await createProject(user, `test${i}`);
+    }
   });
 
   test('All own projects to be send', async () => {
     const projects = await all(user.id);
 
-    expect(projects[0].name).toEqual('test');
-    expect(projects[1].name).toEqual('test1');
+    expect(projects[0].name).toEqual('test29');
+    expect(projects[1].name).toEqual('test28');
+  });
+
+  test('Test Argument take in function', async () => {
+    const projects = await all(user.id, 5);
+
+    expect(projects.length).toEqual(5);
+    expect(projects[0].name).toEqual('test29');
+    expect(projects[4].name).toEqual('test25');
+  });
+
+  test('Test Argument skip in function', async () => {
+    const projects = await all(user.id, 5, 5);
+
+    expect(projects.length).toEqual(5);
+    expect(projects[0].name).toEqual('test24');
+    expect(projects[4].name).toEqual('test20');
   });
 
   afterAll(async () => {

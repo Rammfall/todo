@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
 
 import User from '../src/db/entity/user';
-import login from '../src/actions/user/methods/login';
+import login from '../src/actions/user/methods/login/login';
 import { bcryptRoundSalt } from '../src/config/application';
 
 export const getUser = async (id: number) => {

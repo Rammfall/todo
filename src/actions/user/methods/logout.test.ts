@@ -20,10 +20,11 @@ describe('Logout user', () => {
   });
 
   test('When we send refresh token on logout token removed in db', async () => {
-    const { refreshToken } = session;
-    await logout(refreshToken);
+    await logout(session);
 
-    expect(await UserSession.findOne({ refreshToken })).toEqual(undefined);
+    expect(
+      await UserSession.findOne({ refreshToken: session.refreshToken })
+    ).toEqual(undefined);
   });
 
   afterAll(async () => {

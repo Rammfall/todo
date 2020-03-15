@@ -1,8 +1,6 @@
 import UserSession from '../../../db/entity/userSession';
 
-export default async (refreshToken: string) => {
-  const session: UserSession = await UserSession.findOne({ refreshToken });
-
+export default async (session: UserSession) => {
   if (session) {
     return await session.remove();
   }
