@@ -2,15 +2,15 @@ import User from '../../../db/entity/user';
 import Project from '../../../db/entity/project';
 import { ordering } from '../../../config/database';
 
-export default async (id: number, take: number = 20, skip: number = 0) => {
-  const user = await User.findOne({ id });
+export default async (user: User, take: number = 20, skip: number = 0) => {
+  const takeCount = take > 50 ? 50 : take;
 
   if (user) {
     const projects: Project[] = await Project.find({
       where: {
         user
       },
-      take,
+      take: takeCount,
       skip,
       order: {
         id: ordering

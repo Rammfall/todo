@@ -33,3 +33,10 @@ export const createSession = async (user: User) => {
 
   return session;
 };
+
+export const createSessionToken = async (user: User) => {
+  const loginResult = await login(user);
+  const { accessToken } = loginResult;
+
+  return accessToken;
+};

@@ -18,14 +18,14 @@ describe('The user get all own projects', () => {
   });
 
   test('All own projects to be send', async () => {
-    const projects = await all(user.id);
+    const projects = await all(user);
 
     expect(projects[0].name).toEqual('test29');
     expect(projects[1].name).toEqual('test28');
   });
 
   test('Test Argument take in function', async () => {
-    const projects = await all(user.id, 5);
+    const projects = await all(user, 5);
 
     expect(projects.length).toEqual(5);
     expect(projects[0].name).toEqual('test29');
@@ -33,7 +33,7 @@ describe('The user get all own projects', () => {
   });
 
   test('Test Argument skip in function', async () => {
-    const projects = await all(user.id, 5, 5);
+    const projects = await all(user, 5, 5);
 
     expect(projects.length).toEqual(5);
     expect(projects[0].name).toEqual('test24');
