@@ -99,9 +99,6 @@ workflows:
   build:
     jobs:
       - install-dependencies
-      - audit:
-          requires:
-            - install-dependencies
       - setup_db:
           requires:
             - install-dependencies
