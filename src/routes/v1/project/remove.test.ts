@@ -57,6 +57,7 @@ describe('Remove project', () => {
 
   afterAll(async () => {
     await user.remove();
+    await differentUser.remove();
     await getConnection().close();
   });
 });

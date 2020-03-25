@@ -22,8 +22,8 @@ describe('Update project', () => {
       'passs'
     );
     differentUser = await createUser(
-      'difUsrUpdateApi',
-      'difUsrUpdateApi@test.tes',
+      'difUsrU1pdateApi',
+      'difUsrUpd1ateApi@test.tes',
       'pass'
     );
     token = await createSessionToken(user);
@@ -55,6 +55,7 @@ describe('Update project', () => {
 
   afterAll(async () => {
     await user.remove();
+    await differentUser.remove();
     await getConnection().close();
   });
 });
