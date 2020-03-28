@@ -8,7 +8,7 @@
     "dev:server": "nodemon",
     "dev:server:run": "ts-node src/index.ts",
     "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
-    "db:revert": "  ts-node ./node_modules/.bin/typeorm migration:revert",
+    "db:revert": "ts-node ./node_modules/.bin/typeorm migration:revert",
     "db:reboot": "npm run db:revert && npm run db:migrate",
     "build": "rimraf dist && tsc",
     "lint": "npm run lint:js && npm run lint:css",

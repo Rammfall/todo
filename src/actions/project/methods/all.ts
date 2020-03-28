@@ -2,7 +2,11 @@ import User from '../../../db/entity/user';
 import Project from '../../../db/entity/project';
 import { ordering } from '../../../config/database';
 
-export default async (user: User, take: number = 20, skip: number = 0) => {
+export default async (
+  user: User,
+  take: number = 20,
+  skip: number = 0
+): Promise<Project[]> => {
   const takeCount = take > 50 ? 50 : take;
 
   if (user) {

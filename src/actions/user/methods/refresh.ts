@@ -1,7 +1,8 @@
 import UserSession from '../../../db/entity/userSession';
 import login from './login/login';
+import { LoginData } from '../../../interfaces/loginData';
 
-export default async (session: UserSession) => {
+export default async (session: UserSession): Promise<LoginData> => {
   if (session && session.expiredDate >= new Date()) {
     const { user } = session;
 

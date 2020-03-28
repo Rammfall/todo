@@ -17,7 +17,7 @@ describe('Removing project', () => {
   });
 
   test('Project must be removed', async () => {
-    const name = await remove(project);
+    const name: string = await remove(project);
 
     expect(name).toEqual('test');
     expect(await Project.findOne({ id: project.id })).toEqual(undefined);

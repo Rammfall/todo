@@ -10,8 +10,9 @@ import {
 import tokenizer from '../utils/tokenizer';
 import UserSession from '../../../../db/entity/userSession';
 import User from '../../../../db/entity/user';
+import { LoginData } from '../../../../interfaces/loginData';
 
-export default async (user: User) => {
+export default async (user: User): Promise<LoginData> => {
   const { id, username } = user;
   const accessToken: string = sign({ id, username }, jwtAccessSecret, {
     expiresIn: jwtAccessExpiredTime

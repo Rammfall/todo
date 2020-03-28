@@ -6,7 +6,7 @@ import { refreshTokenExpired } from '../../config/application';
 
 export default async (req: Request, res: Response) => {
   const { refreshToken } = req.cookies;
-  const session = await UserSession.findOne({
+  const session: UserSession = await UserSession.findOne({
     where: {
       refreshToken
     },

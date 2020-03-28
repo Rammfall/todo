@@ -18,7 +18,7 @@ export default async (req: RequestUserData, res: Response) => {
   });
 
   try {
-    const removedProjectName = await remove(project);
+    const removedProjectName: string = await remove(project);
 
     res.json({ name: removedProjectName, info: 'removed' });
   } catch (e) {

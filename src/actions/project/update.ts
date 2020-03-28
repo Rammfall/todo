@@ -22,7 +22,7 @@ export default async (req: RequestUserData, res: Response) => {
   });
 
   try {
-    const updatedProject = await update(project, name);
+    const updatedProject: Project = await update(project, name);
 
     res.json({ name: updatedProject.name });
   } catch (e) {
