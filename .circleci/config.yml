@@ -49,7 +49,7 @@ commands:
       - run: npm run lint
   tests:
     steps:
-      - run: npm run test --maxWorkers=1
+      - run: npm run test2
 jobs:
   install-dependencies:
     executor: default

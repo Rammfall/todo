@@ -15,6 +15,7 @@
     "lint:js": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
     "lint:css": "stylelint \"client/**/*.scss\" --fix",
     "test": "jest",
+    "test2": "jest -w 1",
     "coverage": "jest --coverage",
     "windows:db:migrate": "ts-node node_modules\\typeorm\\cli.js migration:run",
     "windows:db:revert": "ts-node node_modules\\typeorm\\cli.js migration:revert",
