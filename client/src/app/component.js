@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './header/header';
 import Footer from './footer/footer';
+import Content from './content';
 import './application.scss';
 
 const App = () => (
@@ -11,6 +12,7 @@ const App = () => (
       <Header />
       <Switch>
         <Route path="/" />
+        <Route path="/about/" compnent={Content} />
       </Switch>
       <Footer />
     </div>

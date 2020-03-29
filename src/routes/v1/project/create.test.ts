@@ -24,10 +24,12 @@ describe('Create project', () => {
     const result = await request(create)
       .post('/api/v1/project/create/')
       .set('Cookie', [`accessToken=${token}`])
-      .send({ name: 'test' });
-    const project: Project = await Project.findOne();
+      .send({ name: 'apiCreateProject' });
+    const project: Project = await Project.findOne({
+      user
+    });
 
-    expect(result.body).toEqual(project);
+    expect(result.body).toEqual({ id: project.id, name: project.name });
   });
 
   afterAll(async () => {

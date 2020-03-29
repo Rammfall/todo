@@ -7,7 +7,7 @@ module.exports = {
   port: dbPort || 5432,
   username: dbUser || 'todo_user',
   password: dbPassword || 'todo_pass',
-  database: dbName || 'todo_dev',
+  database: dbName || 'todo_test',
   synchronize: true,
   logging: true,
   entities: ['src/db/entity/**/*.ts'],

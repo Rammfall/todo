@@ -38,7 +38,10 @@ describe('Update project', () => {
       .send({ name: 'test', id: project.id });
     const updatedProject: Project = await Project.findOne({ id: project.id });
 
-    expect({ id: project.id, name: 'test' }).toEqual(updatedProject);
+    expect({ id: project.id, name: 'test' }).toEqual({
+      id: updatedProject.id,
+      name: updatedProject.name
+    });
   });
 
   test('Updating project different user on route /api/v1/project/update/ are impossible', async () => {

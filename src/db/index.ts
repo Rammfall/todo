@@ -10,6 +10,7 @@ import {
 import UserT from './entity/user';
 import UserSession from './entity/userSession';
 import Project from './entity/project';
+import Task from './entity/task';
 
 const ssl =
   process.env.environment === 'staging' ||
@@ -23,7 +24,7 @@ export default (async function instance() {
     username,
     password,
     database,
-    entities: [UserT, UserSession, Project],
+    entities: [UserT, UserSession, Project, Task],
     logger: 'simple-console',
     extra: {
       ssl

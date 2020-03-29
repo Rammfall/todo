@@ -50,9 +50,10 @@ describe('Remove project', () => {
       id: differentProject.id
     });
 
-    expect({ id: differentProject.id, name: differentProject.name }).toEqual(
-      notRemovedProject
-    );
+    expect({ id: differentProject.id, name: differentProject.name }).toEqual({
+      id: notRemovedProject.id,
+      name: notRemovedProject.name
+    });
   });
 
   afterAll(async () => {
