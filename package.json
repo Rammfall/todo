@@ -12,6 +12,7 @@
     "db:reboot": "npm run db:revert && npm run db:migrate",
     "build": "rimraf dist && tsc",
     "heroku-postbuild": "npm run build && npm run db:migrate && cd client && npm i && npm run build",
+    "heroku-prebuild": "cd client && npm i",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
     "lint:css": "stylelint \"client/**/*.scss\" --fix",
