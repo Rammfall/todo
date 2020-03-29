@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "jest",
-    "build": "rimraf ../public &&  webpack-cli --mode production --env.environment=production",
+    "build": "rimraf ../public &&  ./node_modules/.bin/webpack-cli --mode production --env.environment=production",
     "start": "webpack-dev-server --env.environment=development"
   },
   "author": "Onatskyi Bo",
