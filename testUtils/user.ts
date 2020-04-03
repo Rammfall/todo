@@ -13,9 +13,9 @@ export const deleteUser = async (user: User) => {
 };
 
 export const createUser = async (
-  username: string = 'test',
-  email: string = 'test@test.te',
-  password: string = 'pass'
+  username: string,
+  email: string,
+  password: string
 ) => {
   const user: User = new User();
   const hashPassword: string = await hash(password, bcryptRoundSalt);

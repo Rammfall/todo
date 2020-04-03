@@ -19,6 +19,7 @@
     "test": "jest",
     "test2": "jest -w 1",
     "coverage": "jest --coverage",
+    "coverage2": "jest --coverage -w 1",
     "windows:db:migrate": "ts-node node_modules\\typeorm\\cli.js migration:run",
     "windows:db:revert": "ts-node node_modules\\typeorm\\cli.js migration:revert",
     "windows:db:reboot": "npm run windows:db:revert && npm run windows:db:migrate"
@@ -124,5 +125,12 @@
   "eslintIgnore": [
     "node_modules",
     "src/db/migration"
-  ]
+  ],
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 95
+      }
+    }
+  }
 }

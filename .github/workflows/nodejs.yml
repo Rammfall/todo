@@ -48,4 +48,4 @@ jobs:
         dbPassword: postgres
       run: |
         npm run lint
-        npm test
+        npm run coverage
