@@ -7,7 +7,7 @@ export default async (
   take: number = 20,
   skip: number = 0
 ): Promise<Task[]> => {
-  const normalizedTake = take > 50 ? 50 : take;
+  const normalizedTake: number = take > 50 ? 50 : take;
 
   const tasks: Task[] = await Task.find({
     where: {

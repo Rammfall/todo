@@ -2,19 +2,17 @@ import { Response } from 'express';
 
 import all from './methods/all';
 import { RequestUserData } from '../../interfaces/requestUserData';
-import User from '../../db/entity/user';
 import Project from '../../db/entity/project';
 import Task from '../../db/entity/task';
 
 export default async (req: RequestUserData, res: Response) => {
-  const { id: userId } = req.userData;
-  const { take, skip } = req.query;
-  const { id } = req.body;
-  const user: User = await User.findOne({ id: userId });
+  const { id: userId }: { id: number } = req.userData;
+  const { take, skip }: { take: number; skip: number } = req.query;
+  const { id }: { id: number } = req.body;
   const project: Project = await Project.findOne({
     where: {
       id,
-      user
+      userId
     },
     relations: ['user']
   });

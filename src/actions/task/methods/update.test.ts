@@ -26,6 +26,26 @@ describe('Update task in db', () => {
     expect(task.name).toEqual('true');
   });
 
+  test('Task must be updated with name, description, deadline, status', async () => {
+    const date = new Date();
+
+    await update(task, 'truee', 'New Description', true, date);
+
+    const { name, description, completed, deadline } = task;
+
+    expect({
+      name,
+      description,
+      completed,
+      deadline
+    }).toEqual({
+      name: 'truee',
+      description: 'New Description',
+      completed: true,
+      deadline: date
+    });
+  });
+
   afterAll(async () => {
     await user.remove();
     await getConnection().close();

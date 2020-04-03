@@ -12,7 +12,7 @@ import UserSession from './entity/userSession';
 import Project from './entity/project';
 import Task from './entity/task';
 
-const ssl =
+const ssl: boolean =
   process.env.environment === 'staging' ||
   process.env.environment === 'production';
 

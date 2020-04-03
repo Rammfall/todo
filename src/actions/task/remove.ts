@@ -5,8 +5,8 @@ import Task from '../../db/entity/task';
 import remove from './methods/remove';
 
 export default async (req: RequestUserData, res: Response) => {
-  const { id: userId } = req.userData;
-  const { id } = req.body;
+  const { id: userId }: { id: number } = req.userData;
+  const { id }: { id: number } = req.body;
   const task: Task = await Task.findOne({
     where: {
       id

@@ -2,8 +2,8 @@ import { sign } from 'jsonwebtoken';
 import { v4 } from 'uuid';
 
 import {
-  jwtAccessSecret,
   jwtAccessExpiredTime,
+  jwtAccessSecret,
   jwtAccessTokenWord,
   refreshTokenExpired
 } from '../../../../config/application';
@@ -13,7 +13,7 @@ import User from '../../../../db/entity/user';
 import { LoginData } from '../../../../interfaces/loginData';
 
 export default async (user: User): Promise<LoginData> => {
-  const { id, username } = user;
+  const { id, username }: { id: number; username: string } = user;
   const accessToken: string = sign({ id, username }, jwtAccessSecret, {
     expiresIn: jwtAccessExpiredTime
   });
@@ -28,7 +28,7 @@ export default async (user: User): Promise<LoginData> => {
   session.refreshToken = refreshToken;
   session.user = user;
 
-  const savedSession = await session.save();
+  const savedSession: UserSession = await session.save();
 
   return {
     accessToken: tokenizer(accessToken, jwtAccessTokenWord),

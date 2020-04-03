@@ -6,8 +6,8 @@ import User from '../../db/entity/user';
 import Project from '../../db/entity/project';
 
 export default async (req: RequestUserData, res: Response) => {
-  const { name } = req.body;
-  const { id } = req.userData;
+  const { name }: { name: string } = req.body;
+  const { id }: { id: number } = req.userData;
   const user: User = await User.findOne({ id });
 
   try {

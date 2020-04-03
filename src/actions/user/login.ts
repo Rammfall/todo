@@ -5,48 +5,42 @@ import checkEmail from './methods/checkers/checkEmail';
 import checkUsername from './methods/checkers/checkUsername';
 import loginEmail from './methods/login/loginEmail';
 import loginUsername from './methods/login/loginUsername';
-import { refreshTokenExpired } from '../../config/application';
+import cookieSetter from './methods/cookieSetter';
 
 export default async (req: Request, res: Response) => {
-  const { name, password } = req.body;
+  const { name, password }: { name: string; password: string } = req.body;
 
-  if (validator.isEmail(name)) {
-    if (await checkEmail(name)) {
-      try {
-        const { accessToken, refreshToken } = await loginEmail(name, password);
+  try {
+    if (validator.isEmail(name)) {
+      if (await checkEmail(name)) {
+        const {
+          accessToken,
+          refreshToken
+        }: { accessToken: string; refreshToken: string } = await loginEmail(
+          name,
+          password
+        );
 
-        res.cookie('accessToken', accessToken, {
-          maxAge: refreshTokenExpired,
-          httpOnly: true
-        });
-        res.cookie('refreshToken', refreshToken, {
-          maxAge: refreshTokenExpired,
-          httpOnly: true
-        });
+        cookieSetter(res, accessToken, refreshToken);
         res.json({});
-      } catch (e) {
-        res.status(403).json({ info: e.message });
+      } else {
+        res.status(403).json({ info: "Email doesn't exist" });
       }
-    } else {
-      res.status(403).json({ info: "Email doesn't exist" });
-    }
-  } else if (await checkUsername(name)) {
-    try {
-      const { accessToken, refreshToken } = await loginUsername(name, password);
+    } else if (await checkUsername(name)) {
+      const {
+        accessToken,
+        refreshToken
+      }: { accessToken: string; refreshToken: string } = await loginUsername(
+        name,
+        password
+      );
 
-      res.cookie('accessToken', accessToken, {
-        maxAge: refreshTokenExpired,
-        httpOnly: true
-      });
-      res.cookie('refreshToken', refreshToken, {
-        maxAge: refreshTokenExpired,
-        httpOnly: true
-      });
+      cookieSetter(res, accessToken, refreshToken);
       res.json({});
-    } catch (e) {
-      res.status(403).json({ info: e.message });
+    } else {
+      res.status(403).json({ info: "User doesn't exist" });
     }
-  } else {
-    res.status(403).json({ info: "User doesn't exist" });
+  } catch (e) {
+    res.status(403).json({ info: e.message });
   }
 };

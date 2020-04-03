@@ -7,7 +7,7 @@ export default async (
   take: number = 20,
   skip: number = 0
 ): Promise<Project[]> => {
-  const takeCount = take > 50 ? 50 : take;
+  const takeCount: number = take > 50 ? 50 : take;
 
   if (user) {
     const projects: Project[] = await Project.find({

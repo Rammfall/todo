@@ -6,8 +6,8 @@ import User from '../../db/entity/user';
 import Project from '../../db/entity/project';
 
 export default async (req: RequestUserData, res: Response) => {
-  const { id } = req.userData;
-  const { take, skip } = req.query;
+  const { id }: { id: number } = req.userData;
+  const { take, skip }: { take: number; skip: number } = req.query;
   const user: User = await User.findOne({ id });
 
   try {
@@ -15,6 +15,6 @@ export default async (req: RequestUserData, res: Response) => {
 
     res.json(projects);
   } catch (e) {
-    res.status(500).json({ info: e.message });
+    res.status(403).json({ info: e.message });
   }
 };

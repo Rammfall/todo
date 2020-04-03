@@ -6,7 +6,11 @@ import createUser from './methods/create';
 import User from '../../db/entity/user';
 
 export default async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
+  const {
+    username,
+    email,
+    password
+  }: { username: string; email: string; password: string } = req.body;
 
   if (await checkUsername(username)) {
     res.status(403).json({ info: 'Username are exist' });

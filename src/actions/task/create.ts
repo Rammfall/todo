@@ -2,19 +2,29 @@ import { Response } from 'express';
 
 import create from './methods/create';
 import { RequestUserData } from '../../interfaces/requestUserData';
-import User from '../../db/entity/user';
 import Task from '../../db/entity/task';
 import Project from '../../db/entity/project';
 
 export default async (req: RequestUserData, res: Response) => {
-  const { id: userId } = req.userData;
-  const { name, description, completed, deadline, id } = req.body;
+  const { id: userId }: { id: number } = req.userData;
+  const {
+    name,
+    description,
+    completed,
+    deadline,
+    id
+  }: {
+    name: string;
+    description: string;
+    completed: boolean;
+    deadline: Date;
+    id: number;
+  } = req.body;
 
-  const user: User = await User.findOne({ id: userId });
   const project: Project = await Project.findOne({
     where: {
       id,
-      user
+      userId
     },
     relations: ['user']
   });

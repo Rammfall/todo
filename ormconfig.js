@@ -9,7 +9,7 @@ module.exports = {
   password: dbPassword || 'todo_pass',
   database: dbName || 'todo_test',
   synchronize: true,
-  logging: true,
+  logging: ['query'],
   entities: ['src/db/entity/**/*.ts'],
   migrations: ['src/db/migration/**/*.ts'],
   subscribers: ['src/db/subscriber/**/*.ts'],
