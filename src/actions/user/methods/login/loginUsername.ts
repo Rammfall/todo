@@ -2,8 +2,12 @@ import { compare } from 'bcrypt';
 
 import User from '../../../../db/entity/user';
 import login from './login';
+import { LoginData } from '../../../../interfaces/loginData';
 
-export default async (username: string, password: string) => {
+export default async (
+  username: string,
+  password: string
+): Promise<LoginData> => {
   const user: User = await User.findOne({ username });
 
   if (await compare(password, user.password)) {

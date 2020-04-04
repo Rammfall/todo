@@ -8,14 +8,18 @@
     "dev:server": "nodemon",
     "dev:server:run": "ts-node src/index.ts",
     "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
-    "db:revert": "  ts-node ./node_modules/.bin/typeorm migration:revert",
+    "db:revert": "ts-node ./node_modules/.bin/typeorm migration:revert",
     "db:reboot": "npm run db:revert && npm run db:migrate",
     "build": "rimraf dist && tsc",
+    "heroku-postbuild": "npm run build && npm run db:migrate",
+    "heroku-prebuild": "cd client && npm i && npm run build",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
     "lint:css": "stylelint \"client/**/*.scss\" --fix",
     "test": "jest",
+    "test2": "jest -w 1",
     "coverage": "jest --coverage",
+    "coverage2": "jest --coverage -w 1",
     "windows:db:migrate": "ts-node node_modules\\typeorm\\cli.js migration:run",
     "windows:db:revert": "ts-node node_modules\\typeorm\\cli.js migration:revert",
     "windows:db:reboot": "npm run windows:db:revert && npm run windows:db:migrate"
@@ -31,6 +35,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Rammfall/todo/issues"
+  },
+  "engines": {
+    "node": "12.x"
   },
   "homepage": "https://github.com/Rammfall/todo#readme",
   "devDependencies": {
@@ -93,11 +100,13 @@
   },
   "lint-staged": {
     "*.ts": [
+      "jest --findRelatedTests",
       "prettier --write",
       "eslint --fix",
       "git add"
     ],
     "*.js": [
+      "jest --findRelatedTests",
       "prettier --write",
       "eslint --fix",
       "git add"
@@ -116,5 +125,12 @@
   "eslintIgnore": [
     "node_modules",
     "src/db/migration"
-  ]
+  ],
+  "jest": {
+      "coverageThreshold": {
+      "global": {
+        "statements": 95
+      }
+    }
+  }
 }

@@ -1,15 +1,15 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 import create from './methods/create';
+import { RequestUserData } from '../../interfaces/requestUserData';
+import User from '../../db/entity/user';
+import Project from '../../db/entity/project';
 
-export default async (req: Request, res: Response) => {
-  const { id, name } = req.body;
+export default async (req: RequestUserData, res: Response) => {
+  const { name }: { name: string } = req.body;
+  const { id }: { id: number } = req.userData;
+  const user: User = await User.findOne({ id });
+  const project: Project = await create(user, name);
 
-  try {
-    const projects = await create(id, name);
-
-    res.json({ projects });
-  } catch (e) {
-    res.status(500).json({ info: e.message });
-  }
+  res.json({ id: project.id, name: project.name });
 };

@@ -20,6 +20,11 @@ export default class Project extends BaseEntity {
   })
   name: string;
 
+  @Column({
+    nullable: false
+  })
+  userId: number;
+
   @ManyToOne(
     () => User,
     (user: User) => user.id

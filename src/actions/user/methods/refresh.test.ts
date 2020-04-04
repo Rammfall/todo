@@ -33,6 +33,18 @@ describe('Logout user', () => {
     ).toEqual(true);
   });
 
+  test('When refresh expired will be call exception', async () => {
+    const expiredSession: UserSession = await createSession(
+      user,
+      -2 * 32 * 24 * 60 * 60 * 60
+    );
+
+    // eslint-disable-next-line jest/valid-expect
+    expect(refresh(expiredSession)).rejects.toThrowError(
+      new Error('Token not exist or expired')
+    );
+  });
+
   afterAll(async () => {
     await deleteUser(user);
     await getConnection().close();

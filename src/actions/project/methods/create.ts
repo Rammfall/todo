@@ -1,10 +1,10 @@
 import User from '../../../db/entity/user';
 import Project from '../../../db/entity/project';
 
-export default async (id: number, name: string) => {
+export default async (user: User, name: string): Promise<Project> => {
   const project: Project = new Project();
   project.name = name;
-  project.user = await User.findOne({ id });
+  project.user = user;
 
   return await project.save();
 };

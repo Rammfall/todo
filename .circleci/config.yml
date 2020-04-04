@@ -49,7 +49,7 @@ commands:
       - run: npm run lint
   tests:
     steps:
-      - run: npm run test
+      - run: npm run coverage2
 jobs:
   install-dependencies:
     executor: default
@@ -99,9 +99,6 @@ workflows:
   build:
     jobs:
       - install-dependencies
-      - audit:
-          requires:
-            - install-dependencies
       - setup_db:
           requires:
             - install-dependencies
