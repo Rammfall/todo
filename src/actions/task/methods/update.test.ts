@@ -20,6 +20,12 @@ describe('Update task in db', () => {
     task = await createTask(project, 'test');
   });
 
+  test('Task not will be updated', async () => {
+    await update(task);
+
+    expect(task.name).toEqual('test');
+  });
+
   test('Task must be updated with name', async () => {
     await update(task, 'true');
 

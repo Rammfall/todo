@@ -1,5 +1,6 @@
 import { getConnection } from 'typeorm';
 import request from 'supertest';
+import { v4 } from 'uuid';
 
 import logout from '../../../application';
 import User from '../../../db/entity/user';
@@ -35,6 +36,24 @@ describe('Logout user', () => {
     expect(
       await UserSession.findOne({ refreshToken: session.refreshToken })
     ).toEqual(undefined);
+  });
+
+  test('Logout user with not valid refreshToken', async () => {
+    const result = await request(logout)
+      .post('/api/v1/user/logout/')
+      .set('Cookie', [`refreshToken=${session.refreshToken}t`]);
+
+    expect(result.status).toEqual(500);
+    expect(result.body.info).toEqual('Not valid token');
+  });
+
+  test('Logout user with not existing refreshToken', async () => {
+    const result = await request(logout)
+      .post('/api/v1/user/logout/')
+      .set('Cookie', [`refreshToken=${v4()}`]);
+
+    expect(result.status).toEqual(500);
+    expect(result.body.info).toEqual('Logout error');
   });
 
   afterAll(async () => {

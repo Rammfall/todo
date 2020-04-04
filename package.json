@@ -127,7 +127,7 @@
     "src/db/migration"
   ],
   "jest": {
-    "coverageThreshold": {
+      "coverageThreshold": {
       "global": {
         "statements": 95
       }

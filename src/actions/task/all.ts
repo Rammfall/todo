@@ -22,6 +22,6 @@ export default async (req: RequestUserData, res: Response) => {
 
     res.json(tasks);
   } else {
-    res.status(403).json({ info: 'project does not exist' });
+    res.status(404).json({ info: 'project does not exist' });
   }
 };

@@ -87,6 +87,34 @@ describe('Login on api', () => {
     expect(result.status).toEqual(403);
   });
 
+  test('Login with no existing email on api', async () => {
+    const result = await request(login)
+      .post('/api/v1/user/login/')
+      .send({
+        name: 'notExistingApi@login.user',
+        password: 'pass1'
+      });
+
+    const { info } = result.body;
+
+    expect(info).toEqual("Email doesn't exist");
+    expect(result.status).toEqual(403);
+  });
+
+  test('Login with no existing username on api', async () => {
+    const result = await request(login)
+      .post('/api/v1/user/login/')
+      .send({
+        name: 'notExistingApiLoginUser',
+        password: 'pass1'
+      });
+
+    const { info } = result.body;
+
+    expect(info).toEqual("User doesn't exist");
+    expect(result.status).toEqual(403);
+  });
+
   afterAll(async () => {
     await deleteUser(user);
     await getConnection().close();

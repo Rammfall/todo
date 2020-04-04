@@ -12,15 +12,19 @@ import UserSession from '../../../../db/entity/userSession';
 import User from '../../../../db/entity/user';
 import { LoginData } from '../../../../interfaces/loginData';
 
-export default async (user: User): Promise<LoginData> => {
+export default async (
+  user: User,
+  expired: number = refreshTokenExpired,
+  expiredAccessToken: string = jwtAccessExpiredTime
+): Promise<LoginData> => {
   const { id, username }: { id: number; username: string } = user;
   const accessToken: string = sign({ id, username }, jwtAccessSecret, {
-    expiresIn: jwtAccessExpiredTime
+    expiresIn: expiredAccessToken
   });
   const refreshToken: string = v4();
   const tempDate: Date = new Date();
   const expiredDate: Date = new Date(
-    tempDate.setTime(tempDate.getTime() + +refreshTokenExpired)
+    tempDate.setTime(tempDate.getTime() + +expired)
   );
   const session: UserSession = new UserSession();
 

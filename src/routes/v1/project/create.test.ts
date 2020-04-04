@@ -32,6 +32,17 @@ describe('Create project', () => {
     expect(result.body).toEqual({ id: project.id, name: project.name });
   });
 
+  test('Creating project on protected route', async () => {
+    const accessToken: string = await createSessionToken(user, '1ms');
+    const result = await request(create)
+      .post('/api/v1/project/create/')
+      .set('Cookie', [`accessToken=${accessToken}`])
+      .send({ name: 'apiCreateProject' });
+
+    expect(result.status).toEqual(401);
+    expect(result.body.info).toEqual('jwt expired');
+  });
+
   afterAll(async () => {
     await user.remove();
     await getConnection().close();

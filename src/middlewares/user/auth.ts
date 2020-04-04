@@ -12,7 +12,7 @@ export default (req: RequestUserDataJwt, res: Response, next: NextFunction) => {
     next();
   } catch (e) {
     res.status(401).json({
-      message: e.message
+      info: e.message
     });
   }
 };

@@ -9,12 +9,7 @@ export default async (req: RequestUserData, res: Response) => {
   const { id }: { id: number } = req.userData;
   const { take, skip }: { take: number; skip: number } = req.query;
   const user: User = await User.findOne({ id });
+  const projects: Project[] = await all(user, take, skip);
 
-  try {
-    const projects: Project[] = await all(user, take, skip);
-
-    res.json(projects);
-  } catch (e) {
-    res.status(403).json({ info: e.message });
-  }
+  res.json(projects);
 };

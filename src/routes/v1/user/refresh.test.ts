@@ -41,6 +41,19 @@ describe('Login on api', () => {
     ).toEqual(undefined);
   });
 
+  test('Refresh on expired token not possible', async () => {
+    const { refreshToken }: { refreshToken: string } = await createSession(
+      user,
+      -2 * 32 * 24 * 60 * 60 * 60
+    );
+    const result = await request(refresh)
+      .post('/api/v1/user/refresh/')
+      .set('Cookie', [`refreshToken=${refreshToken}`]);
+
+    expect(result.status).toEqual(403);
+    expect(result.body.info).toEqual('Token not exist or expired');
+  });
+
   afterAll(async () => {
     await deleteUser(user);
     await getConnection().close();

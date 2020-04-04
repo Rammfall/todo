@@ -16,6 +16,8 @@ describe('Getting tasks on api /api/v1/task/all/', () => {
   let user: User;
   let token: string;
   let project: Project;
+  let diffUser: User;
+  let diffProject: Project;
 
   beforeAll(async () => {
     await getConnection().connect();
@@ -26,6 +28,13 @@ describe('Getting tasks on api /api/v1/task/all/', () => {
       // eslint-disable-next-line no-await-in-loop
       await createTask(project, `test${i}`);
     }
+    diffUser = await createUser(
+      'diffUserallTasksApi',
+      'diffUserallTasksApi@email.test',
+      'pass'
+    );
+    diffProject = await createProject(diffUser, 'test');
+    await createTask(diffProject, 'apiTest');
   });
 
   test('Get first 20 projects without params', async () => {
@@ -42,7 +51,7 @@ describe('Getting tasks on api /api/v1/task/all/', () => {
 
   test('Get first 50 projects with params', async () => {
     const result = await request(app)
-      .post('/api/v1/task/all/?take=50')
+      .post('/api/v1/task/all/?take=51')
       .send({ id: project.id })
       .set('Cookie', [`accessToken=${token}`]);
     const data = result.body;
@@ -66,8 +75,19 @@ describe('Getting tasks on api /api/v1/task/all/', () => {
     expect(data[2].name).toEqual('test45');
   });
 
+  test('We cannot get tasks diff user and get error', async () => {
+    const result = await request(app)
+      .post('/api/v1/task/all/')
+      .send({ id: diffProject.id })
+      .set('Cookie', [`accessToken=${token}`]);
+
+    expect(result.status).toEqual(404);
+    expect(result.body.info).toEqual('project does not exist');
+  });
+
   afterAll(async () => {
     await deleteUser(user);
+    await diffUser.remove();
     await getConnection().close();
   });
 });

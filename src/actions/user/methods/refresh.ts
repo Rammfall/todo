@@ -4,7 +4,7 @@ import { LoginData } from '../../../interfaces/loginData';
 import User from '../../../db/entity/user';
 
 export default async (session: UserSession): Promise<LoginData> => {
-  if (session && session.expiredDate >= new Date()) {
+  if (session && +session.expiredDate >= +new Date()) {
     const { user }: { user: User } = session;
 
     await session.remove();
