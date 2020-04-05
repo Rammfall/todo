@@ -16,7 +16,6 @@ module.exports = env => {
       hmr: process.env.NODE_ENV === 'development'
     }
   };
-  console.log(env !== undefined && env.environment !== 'development');
 
   return merge({
     entry: './src/index.js',
@@ -24,20 +23,6 @@ module.exports = env => {
       path: resolve(__dirname, '../public'),
       filename: 'js/[name].[hash].js'
     },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: resolve(__dirname, 'assets/index.html'),
-        filename: 'index.html'
-      }),
-      new MiniCssExtractPlugin({
-        filename: '[name].[hash].css',
-        chunkFilename: '[id].[hash].css'
-      }),
-      new DefinePlugin({
-        'process.env.host': process.env.frontHost,
-        'process.env.assetPath': assetPath
-      })
-    ],
     devServer: {
       contentBase: join(__dirname, 'assets'),
       historyApiFallback: true,
@@ -79,6 +64,20 @@ module.exports = env => {
         }
       ]
     },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: resolve(__dirname, 'assets/index.html'),
+        filename: 'index.html'
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].[hash].css',
+        chunkFilename: '[id].[hash].css'
+      }),
+      new DefinePlugin({
+        'process.env.host': process.env.frontHost,
+        'process.env.assetPath': assetPath
+      })
+    ],
     optimization: {
       usedExports: true,
       minimize: true,
