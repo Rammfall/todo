@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import login from '../../../actions/user/logout';
+import logout from '../../../actions/user/logout';
 
-const router = Router();
+const router: Router = Router();
 
-router.post('/', login);
+router.post('/', logout);
 
 export default router;

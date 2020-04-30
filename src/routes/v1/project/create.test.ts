@@ -25,11 +25,13 @@ describe('Create project', () => {
       .post('/api/v1/project/create/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'apiCreateProject' });
-    const project: Project = await Project.findOne({
+    const project: Project | undefined = await Project.findOne({
       user
     });
 
-    expect(result.body).toEqual({ id: project.id, name: project.name });
+    if (project) {
+      expect(result.body).toEqual({ id: project.id, name: project.name });
+    }
   });
 
   test('Creating project on protected route', async () => {

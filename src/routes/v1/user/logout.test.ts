@@ -53,7 +53,7 @@ describe('Logout user', () => {
       .set('Cookie', [`refreshToken=${v4()}`]);
 
     expect(result.status).toEqual(500);
-    expect(result.body.info).toEqual('Logout error');
+    expect(result.body.info).toEqual('Session not exist');
   });
 
   afterAll(async () => {

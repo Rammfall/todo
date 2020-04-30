@@ -1,7 +1,7 @@
 import Task from '../../../db/entity/task';
 import Project from '../../../db/entity/project';
 
-export default async (
+const create = async (
   project: Project,
   name: string,
   description?: string,
@@ -18,3 +18,5 @@ export default async (
 
   return await task.save();
 };
+
+export default create;

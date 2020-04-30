@@ -36,12 +36,16 @@ describe('Update project', () => {
       .post('/api/v1/project/update/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'test', id: project.id });
-    const updatedProject: Project = await Project.findOne({ id: project.id });
-
-    expect({ id: project.id, name: 'test' }).toEqual({
-      id: updatedProject.id,
-      name: updatedProject.name
+    const updatedProject: Project | undefined = await Project.findOne({
+      id: project.id
     });
+
+    if (updatedProject) {
+      expect({ id: project.id, name: 'test' }).toEqual({
+        id: updatedProject.id,
+        name: updatedProject.name
+      });
+    }
   });
 
   test('Updating project different user on route /api/v1/project/update/ are impossible', async () => {

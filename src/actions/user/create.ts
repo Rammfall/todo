@@ -5,7 +5,7 @@ import checkUsername from './methods/checkers/checkUsername';
 import createUser from './methods/create';
 import User from '../../db/entity/user';
 
-export default async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response): Promise<any> => {
   const {
     username,
     email,
@@ -21,3 +21,5 @@ export default async (req: Request, res: Response) => {
     res.json({ username: user.username, email: user.email, id: user.id });
   }
 };
+
+export default create;

@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import all from '../../../actions/task/all';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', all);
 

@@ -1,15 +1,21 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import create from './methods/create';
-import { RequestUserData } from '../../interfaces/requestUserData';
 import User from '../../db/entity/user';
 import Project from '../../db/entity/project';
 
-export default async (req: RequestUserData, res: Response) => {
+const createHandler = async (req: Request, res: Response): Promise<any> => {
   const { name }: { name: string } = req.body;
-  const { id }: { id: number } = req.userData;
-  const user: User = await User.findOne({ id });
-  const project: Project = await create(user, name);
+  const { id }: { id: number } = req.body.userData;
+  const user: User | undefined = await User.findOne({ id });
 
-  res.json({ id: project.id, name: project.name });
+  if (user) {
+    const project: Project = await create(user, name);
+
+    res.json({ id: project.id, name: project.name });
+  } else {
+    res.status(403).json({ info: 'Cannot create project' });
+  }
 };
+
+export default createHandler;

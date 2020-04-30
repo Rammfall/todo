@@ -12,7 +12,7 @@ import UserSession from '../../../../db/entity/userSession';
 import User from '../../../../db/entity/user';
 import { LoginData } from '../../../../interfaces/loginData';
 
-export default async (
+const login = async (
   user: User,
   expired: number = refreshTokenExpired,
   expiredAccessToken: string = jwtAccessExpiredTime
@@ -40,3 +40,5 @@ export default async (
     session
   };
 };
+
+export default login;

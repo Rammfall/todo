@@ -3,22 +3,22 @@ import { Column, Entity, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 @Entity()
 export default class UserT extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({
     type: 'varchar',
     length: '30'
   })
-  username: string;
+  username!: string;
 
   @Column({
     type: 'varchar',
     length: '40'
   })
-  email: string;
+  email!: string;
 
   @Column({
     type: 'varchar'
   })
-  password: string;
+  password!: string;
 }

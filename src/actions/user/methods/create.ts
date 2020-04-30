@@ -3,7 +3,7 @@ import { hash, genSalt } from 'bcrypt';
 import User from '../../../db/entity/user';
 import { bcryptRoundSalt } from '../../../config/application';
 
-export default async (
+const create = async (
   username: string,
   email: string,
   password: string
@@ -18,3 +18,5 @@ export default async (
 
   return await user.save();
 };
+
+export default create;

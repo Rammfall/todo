@@ -1,6 +1,6 @@
 import Task from '../../../db/entity/task';
 
-export default async (
+const update = async (
   task: Task,
   name?: string,
   description?: string,
@@ -26,3 +26,5 @@ export default async (
 
   return await task.save();
 };
+
+export default update;

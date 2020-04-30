@@ -1,14 +1,13 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import { RequestUserDataJwt } from '../../interfaces/requestUserData';
 import { jwtAccessSecret } from '../../config/application';
 
-export default (req: RequestUserDataJwt, res: Response, next: NextFunction) => {
+const auth = (req: Request, res: Response, next: NextFunction): any => {
   try {
     const token: string = req.cookies.accessToken.split(' ')[1];
 
-    req.userData = verify(token, jwtAccessSecret);
+    req.body.userData = verify(token, jwtAccessSecret);
     next();
   } catch (e) {
     res.status(401).json({
@@ -16,3 +15,5 @@ export default (req: RequestUserDataJwt, res: Response, next: NextFunction) => {
     });
   }
 };
+
+export default auth;

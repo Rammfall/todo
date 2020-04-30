@@ -6,7 +6,7 @@ import create from '../../../application';
 import { createUser } from '../../../../testUtils/user';
 
 describe('Register on api', () => {
-  let user: User;
+  let user: User | undefined;
   let existingUser: User;
 
   beforeAll(async () => {
@@ -28,7 +28,9 @@ describe('Register on api', () => {
       });
     user = await User.findOne({ username: 'apitestcreate' });
 
-    expect(user.email).toEqual('apitestcreate@api.ua');
+    if (user) {
+      expect(user.email).toEqual('apitestcreate@api.ua');
+    }
   });
 
   test('Register user with existing email no possible', async () => {
@@ -58,7 +60,7 @@ describe('Register on api', () => {
   });
 
   afterAll(async () => {
-    await user.remove();
+    if (user) await user.remove();
     await existingUser.remove();
     await getConnection().close();
   });

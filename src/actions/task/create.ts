@@ -1,12 +1,11 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import create from './methods/create';
-import { RequestUserData } from '../../interfaces/requestUserData';
 import Task from '../../db/entity/task';
 import Project from '../../db/entity/project';
 
-export default async (req: RequestUserData, res: Response) => {
-  const { id: userId }: { id: number } = req.userData;
+const createHandler = async (req: Request, res: Response): Promise<any> => {
+  const { id: userId }: { id: number } = req.body.userData;
   const {
     name,
     description,
@@ -21,7 +20,7 @@ export default async (req: RequestUserData, res: Response) => {
     id: number;
   } = req.body;
 
-  const project: Project = await Project.findOne({
+  const project: Project | undefined = await Project.findOne({
     where: {
       id,
       userId
@@ -49,3 +48,5 @@ export default async (req: RequestUserData, res: Response) => {
     res.status(403).json({ info: 'Project is not exist' });
   }
 };
+
+export default createHandler;

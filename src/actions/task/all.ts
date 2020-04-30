@@ -1,15 +1,14 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import all from './methods/all';
-import { RequestUserData } from '../../interfaces/requestUserData';
 import Project from '../../db/entity/project';
 import Task from '../../db/entity/task';
 
-export default async (req: RequestUserData, res: Response) => {
-  const { id: userId }: { id: number } = req.userData;
+const allHandler = async (req: Request, res: Response): Promise<any> => {
+  const { id: userId }: { id: number } = req.body.userData;
   const { take, skip }: { take: number; skip: number } = req.query;
   const { id }: { id: number } = req.body;
-  const project: Project = await Project.findOne({
+  const project: Project | undefined = await Project.findOne({
     where: {
       id,
       userId
@@ -25,3 +24,5 @@ export default async (req: RequestUserData, res: Response) => {
     res.status(404).json({ info: 'project does not exist' });
   }
 };
+
+export default allHandler;

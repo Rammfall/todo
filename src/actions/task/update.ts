@@ -1,10 +1,9 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import update from './methods/update';
-import { RequestUserData } from '../../interfaces/requestUserData';
 import Task from '../../db/entity/task';
 
-export default async (req: RequestUserData, res: Response) => {
+const updateHandler = async (req: Request, res: Response): Promise<any> => {
   const {
     id,
     name,
@@ -18,15 +17,15 @@ export default async (req: RequestUserData, res: Response) => {
     completed: boolean;
     deadline: Date;
   } = req.body;
-  const { id: userId }: { id: number } = req.userData;
-  const task: Task = await Task.findOne({
+  const { id: userId }: { id: number } = req.body.userData;
+  const task: Task | undefined = await Task.findOne({
     where: {
       id
     },
     relations: ['project']
   });
 
-  if (task.project.userId === userId) {
+  if (task && task.project.userId === userId) {
     const updatedTask: Task = await update(
       task,
       name,
@@ -40,3 +39,5 @@ export default async (req: RequestUserData, res: Response) => {
     res.status(403).json({ info: 'Task does not exist' });
   }
 };
+
+export default updateHandler;

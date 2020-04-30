@@ -4,9 +4,9 @@ import refresh from './methods/refresh';
 import UserSession from '../../db/entity/userSession';
 import cookieSetter from './methods/cookieSetter';
 
-export default async (req: Request, res: Response) => {
+const refreshHandler = async (req: Request, res: Response): Promise<any> => {
   const { refreshToken }: { refreshToken: string } = req.cookies;
-  const session: UserSession = await UserSession.findOne({
+  const session: UserSession | undefined = await UserSession.findOne({
     where: {
       refreshToken
     },
@@ -14,14 +14,20 @@ export default async (req: Request, res: Response) => {
   });
 
   try {
-    const {
-      accessToken,
-      refreshToken: newRefresh
-    }: { accessToken: string; refreshToken: string } = await refresh(session);
+    if (session) {
+      const {
+        accessToken,
+        refreshToken: newRefresh
+      }: { accessToken: string; refreshToken: string } = await refresh(session);
 
-    cookieSetter(res, accessToken, newRefresh);
-    res.json({});
+      cookieSetter(res, accessToken, newRefresh);
+      res.json({});
+    } else {
+      throw new Error('Refresh token does not exist');
+    }
   } catch (e) {
     res.status(403).json({ info: e.message });
   }
 };
+
+export default refreshHandler;

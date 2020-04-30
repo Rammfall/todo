@@ -2,7 +2,7 @@ import User from '../../../db/entity/user';
 import Project from '../../../db/entity/project';
 import { ordering } from '../../../config/database';
 
-export default async (
+const all = async (
   user: User,
   take: number = 20,
   skip: number = 0
@@ -21,3 +21,5 @@ export default async (
 
   return projects;
 };
+
+export default all;

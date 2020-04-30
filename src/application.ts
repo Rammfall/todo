@@ -1,5 +1,5 @@
 import { join } from 'path';
-import express, { Request, Response, Router } from 'express';
+import express, { Request, Response, Router, Express } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -10,8 +10,8 @@ import 'reflect-metadata';
 import applicationRouter from './routes';
 import './db';
 
-const app = express();
-const rootRouter = Router();
+const app: Express = express();
+const rootRouter: Router = Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

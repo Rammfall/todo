@@ -7,7 +7,7 @@ import loginEmail from './methods/login/loginEmail';
 import loginUsername from './methods/login/loginUsername';
 import cookieSetter from './methods/cookieSetter';
 
-export default async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response): Promise<any> => {
   const { name, password }: { name: string; password: string } = req.body;
 
   try {
@@ -44,3 +44,5 @@ export default async (req: Request, res: Response) => {
     res.status(403).json({ info: e.message });
   }
 };
+
+export default login;

@@ -1,15 +1,20 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import all from './methods/all';
-import { RequestUserData } from '../../interfaces/requestUserData';
 import User from '../../db/entity/user';
 import Project from '../../db/entity/project';
 
-export default async (req: RequestUserData, res: Response) => {
-  const { id }: { id: number } = req.userData;
+const allHandler = async (req: Request, res: Response): Promise<any> => {
+  const { id }: { id: number } = req.body.userData;
   const { take, skip }: { take: number; skip: number } = req.query;
-  const user: User = await User.findOne({ id });
-  const projects: Project[] = await all(user, take, skip);
+  const user: User | undefined = await User.findOne({ id });
+  if (user) {
+    const projects: Project[] = await all(user, take, skip);
 
-  res.json(projects);
+    res.json(projects);
+  } else {
+    res.status(403).json({ info: 'Cannot get projects' });
+  }
 };
+
+export default allHandler;

@@ -38,7 +38,7 @@ describe('Remove task on api /api/v1/task/remove/', () => {
       .post('/api/v1/task/remove/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ id: task.id });
-    const removedTask: Task = await Task.findOne({ id: task.id });
+    const removedTask: Task | undefined = await Task.findOne({ id: task.id });
 
     expect(removedTask).toEqual(undefined);
   });
@@ -48,13 +48,15 @@ describe('Remove task on api /api/v1/task/remove/', () => {
       .post('/api/v1/task/remove/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ id: diffTask.id });
-    const notRemovedTask: Task = await Task.findOne({
+    const notRemovedTask: Task | undefined = await Task.findOne({
       id: diffTask.id
     });
 
-    expect(result.status).toEqual(403);
-    expect(result.body.info).toEqual('Task does not exist');
-    expect(notRemovedTask.id).toEqual(diffTask.id);
+    if (notRemovedTask) {
+      expect(result.status).toEqual(403);
+      expect(result.body.info).toEqual('Task does not exist');
+      expect(notRemovedTask.id).toEqual(diffTask.id);
+    }
   });
 
   afterAll(async () => {

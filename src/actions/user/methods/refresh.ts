@@ -1,9 +1,9 @@
-import UserSession from '../../../db/entity/userSession';
-import login from './login/login';
 import { LoginData } from '../../../interfaces/loginData';
+import UserSession from '../../../db/entity/userSession';
 import User from '../../../db/entity/user';
+import login from './login/login';
 
-export default async (session: UserSession): Promise<LoginData> => {
+const refresh = async (session: UserSession): Promise<LoginData> => {
   if (session && +session.expiredDate >= +new Date()) {
     const { user }: { user: User } = session;
 
@@ -14,3 +14,5 @@ export default async (session: UserSession): Promise<LoginData> => {
 
   throw new Error('Token not exist or expired');
 };
+
+export default refresh;

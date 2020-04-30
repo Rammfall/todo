@@ -30,13 +30,17 @@ describe('Login on api', () => {
     const accessToken = accessCookie.slice(13, accessCookie.indexOf(';'));
     const refreshCookie = result.header['set-cookie'][1];
     const refreshToken = refreshCookie.slice(13, refreshCookie.indexOf(';'));
-    const session: UserSession = await UserSession.findOne({ user });
+    const session: UserSession | undefined = await UserSession.findOne({
+      user
+    });
 
-    expect(session.refreshToken).toEqual(refreshToken);
-    expect(validator.isJWT(accessToken.split('%20')[1])).toEqual(true);
-    expect(validator.isUUID(refreshToken)).toEqual(true);
-    expect(result.status).toEqual(200);
-    await session.remove();
+    if (session) {
+      expect(session.refreshToken).toEqual(refreshToken);
+      expect(validator.isJWT(accessToken.split('%20')[1])).toEqual(true);
+      expect(validator.isUUID(refreshToken)).toEqual(true);
+      expect(result.status).toEqual(200);
+      await session.remove();
+    }
   });
 
   test('Login on api route /login/ with email success', async () => {
@@ -50,13 +54,17 @@ describe('Login on api', () => {
     const accessToken = accessCookie.slice(13, accessCookie.indexOf(';'));
     const refreshCookie = result.header['set-cookie'][1];
     const refreshToken = refreshCookie.slice(13, refreshCookie.indexOf(';'));
-    const session: UserSession = await UserSession.findOne({ user });
+    const session: UserSession | undefined = await UserSession.findOne({
+      user
+    });
 
-    expect(session.refreshToken).toEqual(refreshToken);
-    expect(validator.isJWT(accessToken.split('%20')[1])).toEqual(true);
-    expect(validator.isUUID(refreshToken)).toEqual(true);
-    expect(result.status).toEqual(200);
-    await session.remove();
+    if (session) {
+      expect(session.refreshToken).toEqual(refreshToken);
+      expect(validator.isJWT(accessToken.split('%20')[1])).toEqual(true);
+      expect(validator.isUUID(refreshToken)).toEqual(true);
+      expect(result.status).toEqual(200);
+      await session.remove();
+    }
   });
 
   test('Login with username on api route /login/ error with wrong password', async () => {

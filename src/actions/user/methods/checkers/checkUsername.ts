@@ -1,7 +1,9 @@
 import User from '../../../../db/entity/user';
 
-export default async (username: string): Promise<boolean> => {
-  const checkUsername: User = await User.findOne({ username });
+const checkUsername = async (username: string): Promise<boolean> => {
+  const user: User | undefined = await User.findOne({ username });
 
-  return !!checkUsername;
+  return !!user;
 };
+
+export default checkUsername;

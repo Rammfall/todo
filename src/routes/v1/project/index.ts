@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { Express } from 'express';
 
 import all from './all';
 import create from './create';
 import update from './update';
 import remove from './remove';
 
-const router = express();
+const router: Express = express();
 
 router.use('/create', create);
 router.use('/all', all);

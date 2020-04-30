@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Express } from 'express';
 
 import v1 from './v1';
 
-const router = express();
+const router: Express = express();
 
 router.use('/v1', v1);
 
