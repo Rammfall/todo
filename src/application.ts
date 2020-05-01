@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.get('/', express.static(join(__dirname, 'public')));
 
 rootRouter.get('/', (req: Request, res: Response) => {
-  res.sendFile(join(`${__dirname}/../public/index.html`));
+  res.sendFile(join(`${__dirname}/../public/static/index.html`));
 });
 
 app.use('/', rootRouter);

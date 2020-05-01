@@ -1,1 +1,1 @@
-FROM node@current
+FROM node:current
