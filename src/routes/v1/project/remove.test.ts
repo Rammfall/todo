@@ -36,7 +36,9 @@ describe('Remove project', () => {
       .post('/api/v1/project/remove/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'test', id: project.id });
-    const removedProject: Project = await Project.findOne({ id: project.id });
+    const removedProject: Project | undefined = await Project.findOne({
+      id: project.id
+    });
 
     expect(removedProject).toEqual(undefined);
   });
@@ -46,14 +48,16 @@ describe('Remove project', () => {
       .post('/api/v1/project/remove/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'test', id: differentProject.id });
-    const notRemovedProject: Project = await Project.findOne({
+    const notRemovedProject: Project | undefined = await Project.findOne({
       id: differentProject.id
     });
 
-    expect({ id: differentProject.id, name: differentProject.name }).toEqual({
-      id: notRemovedProject.id,
-      name: notRemovedProject.name
-    });
+    if (notRemovedProject) {
+      expect({ id: differentProject.id, name: differentProject.name }).toEqual({
+        id: notRemovedProject.id,
+        name: notRemovedProject.name
+      });
+    }
   });
 
   afterAll(async () => {

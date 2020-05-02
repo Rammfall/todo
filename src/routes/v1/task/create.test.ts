@@ -33,14 +33,16 @@ describe('Check creating tasks on api, request to /api/v1/task/create/', () => {
       .post('/api/v1/task/create/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'test', id: project.id });
-    const task: Task = await Task.findOne({ project });
+    const task: Task | undefined = await Task.findOne({ project });
     const { id, name, completed } = result.body;
 
-    expect(id).toEqual(task.id);
-    expect(completed).toEqual(false);
-    expect(name).toEqual('test');
+    if (task) {
+      expect(id).toEqual(task.id);
+      expect(completed).toEqual(false);
+      expect(name).toEqual('test');
 
-    await task.remove();
+      await task.remove();
+    }
   });
 
   test('Task will not create to different project different user', async () => {
@@ -48,7 +50,7 @@ describe('Check creating tasks on api, request to /api/v1/task/create/', () => {
       .post('/api/v1/task/create/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'test', id: diffProject.id });
-    const task: Task = await Task.findOne({ project: diffProject });
+    const task: Task | undefined = await Task.findOne({ project: diffProject });
     const { info } = result.body;
 
     expect(result.status).toEqual(403);

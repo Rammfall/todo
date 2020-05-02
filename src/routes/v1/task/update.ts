@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import update from '../../../actions/task/update';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', update);
 

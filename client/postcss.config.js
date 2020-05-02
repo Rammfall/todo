@@ -1,7 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-module.exports = ctx => ({
-  parser: false,
-  map: false,
-  // eslint-disable-next-line global-require,import/no-extraneous-dependencies
-  plugins: [require('autoprefixer'), require('cssnano')]
-});
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+const webpInCss = require('webp-in-css/plugin');
+
+module.exports = ctx => {
+  const { mode } = ctx.webpack;
+  const development = mode === 'development';
+
+  return {
+    parser: false,
+    map: false,
+    plugins: [webpInCss, autoprefixer, development && cssnano]
+  };
+};

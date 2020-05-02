@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { Express } from 'express';
 
 import create from './create';
 import login from './login';
 import refresh from './refresh';
 import logout from './logout';
 
-const router = express();
+const router: Express = express();
 
 router.use('/create', create);
 router.use('/login', login);

@@ -15,7 +15,7 @@
     "heroku-prebuild": "cd client && npm i && npm run build",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
-    "lint:css": "stylelint \"client/**/*.scss\" --fix",
+    "lint:css": "stylelint \"client/**/*.scss\"",
     "test": "jest",
     "test2": "jest -w 1",
     "coverage": "jest --coverage",
@@ -46,6 +46,7 @@
     "@types/express": "^4.17.3",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.1",
+    "@types/node-cron": "^2.0.3",
     "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
@@ -89,6 +90,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
+    "node-cron": "^2.0.3",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.21",
@@ -127,7 +129,7 @@
     "src/db/migration"
   ],
   "jest": {
-      "coverageThreshold": {
+    "coverageThreshold": {
       "global": {
         "statements": 95
       }

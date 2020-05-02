@@ -7,16 +7,17 @@ export default class UserSession extends BaseEntity {
   @PrimaryColumn({
     type: 'uuid'
   })
-  refreshToken: string;
+  refreshToken!: string;
 
   @Column({
-    type: 'timestamp'
+    type: 'timestamp',
+    nullable: false
   })
-  expiredDate: Date;
+  expiredDate!: Date;
 
   @ManyToOne(
     () => User,
     (user: User) => user.id
   )
-  user: User;
+  user!: User;
 }

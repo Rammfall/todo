@@ -6,7 +6,7 @@ import { bcryptRoundSalt } from '../src/config/application';
 import UserSession from '../src/db/entity/userSession';
 import { LoginData } from '../src/interfaces/loginData';
 
-export const getUser = async (id: number): Promise<User> => {
+export const getUser = async (id: number): Promise<User | undefined> => {
   return await User.findOne({ id });
 };
 

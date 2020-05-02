@@ -1,7 +1,12 @@
 import { Response } from 'express';
+
 import { refreshTokenExpired } from '../../../config/application';
 
-export default (res: Response, accessToken: string, refreshToken: string) => {
+const cookieSetter = (
+  res: Response,
+  accessToken: string,
+  refreshToken: string
+) => {
   res.cookie('accessToken', accessToken, {
     maxAge: refreshTokenExpired,
     httpOnly: true
@@ -11,3 +16,5 @@ export default (res: Response, accessToken: string, refreshToken: string) => {
     httpOnly: true
   });
 };
+
+export default cookieSetter;

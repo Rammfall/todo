@@ -11,38 +11,38 @@ import Project from './project';
 @Entity()
 export default class Task extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({
     type: 'varchar',
     length: '100',
     nullable: false
   })
-  name: string;
+  name!: string;
 
   @Column({
     type: 'varchar',
     length: '200',
     nullable: true
   })
-  description: string;
+  description: string | undefined;
 
   @Column({
     type: 'boolean',
     nullable: false,
     default: false
   })
-  completed: boolean;
+  completed: boolean | undefined;
 
   @Column({
     type: 'date',
     nullable: true
   })
-  deadline: Date;
+  deadline: Date | undefined;
 
   @ManyToOne(
     () => Project,
     (project: Project) => project.id
   )
-  project: Project;
+  project!: Project;
 }

@@ -2,7 +2,7 @@ import Project from '../../../db/entity/project';
 import Task from '../../../db/entity/task';
 import { ordering } from '../../../config/database';
 
-export default async (
+const all = async (
   project: Project,
   take: number = 20,
   skip: number = 0
@@ -22,3 +22,5 @@ export default async (
 
   return tasks;
 };
+
+export default all;

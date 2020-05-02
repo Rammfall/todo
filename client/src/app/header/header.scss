@@ -15,6 +15,7 @@
 
 .header__logo {
   font-size: 24px;
+  font-weight: bold;
 }
 
 .nav {
@@ -23,5 +24,13 @@
 
 .nav__item {
   list-style: none;
-  margin-left: 15px;
+}
+
+.nav__link {
+  display: block;
+  padding: 6px 16px;
+}
+
+.nav__link--active {
+  border-bottom: 2px solid var(--color-link-active);
 }

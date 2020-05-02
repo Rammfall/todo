@@ -38,9 +38,11 @@ describe('Update task on route /api/v1/task/update/', () => {
       .post('/api/v1/task/update/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'newMegaTest', id: task.id });
-    const updatedTask: Task = await Task.findOne({ id: task.id });
+    const updatedTask: Task | undefined = await Task.findOne({ id: task.id });
 
-    expect(updatedTask.name).toEqual('newMegaTest');
+    if (updatedTask) {
+      expect(updatedTask.name).toEqual('newMegaTest');
+    }
   });
 
   test('Updating task diff user are impossible', async () => {

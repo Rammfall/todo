@@ -1,20 +1,19 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
-import { RequestUserData } from '../../interfaces/requestUserData';
 import Task from '../../db/entity/task';
 import remove from './methods/remove';
 
-export default async (req: RequestUserData, res: Response) => {
-  const { id: userId }: { id: number } = req.userData;
+const removeHandler = async (req: Request, res: Response): Promise<any> => {
+  const { id: userId }: { id: number } = req.body.userData;
   const { id }: { id: number } = req.body;
-  const task: Task = await Task.findOne({
+  const task: Task | undefined = await Task.findOne({
     where: {
       id
     },
     relations: ['project']
   });
 
-  if (task.project.userId === userId) {
+  if (task && task.project.userId === userId) {
     const removedName: string = await remove(task);
 
     res.json({ name: removedName, info: 'removed' });
@@ -22,3 +21,5 @@ export default async (req: RequestUserData, res: Response) => {
     res.status(403).json({ info: 'Task does not exist' });
   }
 };
+
+export default removeHandler;

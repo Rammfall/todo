@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { Express } from 'express';
 
 import user from './user';
 import project from './project';
 import task from './task';
 import auth from '../../middlewares/user/auth';
 
-const router = express();
+const router: Express = express();
 
 router.use('/user', user);
 router.use('/project', auth, project);

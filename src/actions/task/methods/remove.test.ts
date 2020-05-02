@@ -22,7 +22,7 @@ describe('Check removing task from db', () => {
 
   test('Task should be removed', async () => {
     const result = await remove(task);
-    const removedTask: Task = await Task.findOne({ id: task.id });
+    const removedTask: Task | undefined = await Task.findOne({ id: task.id });
 
     expect(result).toEqual(task.name);
     expect(removedTask).toEqual(undefined);
