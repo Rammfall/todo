@@ -32,7 +32,7 @@ describe('Update project', () => {
   });
 
   test('Updating project on route /api/v1/project/update/', async () => {
-    await request(update)
+    const result = await request(update)
       .post('/api/v1/project/update/')
       .set('Cookie', [`accessToken=${token}`])
       .send({ name: 'test', id: project.id });
@@ -41,6 +41,7 @@ describe('Update project', () => {
     });
 
     if (updatedProject) {
+      expect(result.status).toEqual(200);
       expect({ id: project.id, name: 'test' }).toEqual({
         id: updatedProject.id,
         name: updatedProject.name
