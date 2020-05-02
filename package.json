@@ -15,7 +15,7 @@
     "heroku-prebuild": "cd client && npm i && npm run build",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/**/*.{ts,js}\" \"client/**/*.{ts,js}\" --fix --format stylish --color",
-    "lint:css": "stylelint \"client/**/*.scss\" --fix",
+    "lint:css": "stylelint \"client/**/*.scss\"",
     "test": "jest",
     "test2": "jest -w 1",
     "coverage": "jest --coverage",

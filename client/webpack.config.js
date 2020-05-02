@@ -9,8 +9,7 @@ module.exports = ({ environment }) => {
   const MiniCssLoader = {
     loader: MiniCssExtractPlugin.loader,
     options: {
-      publicPath: '../public/css',
-      hmr: development
+      publicPath: '../public/css'
     }
   };
 
@@ -49,7 +48,11 @@ module.exports = ({ environment }) => {
       ]
     },
     devServer: {
-      contentBase: join(__dirname, '../public/static')
+      contentBase: join(__dirname, 'assets'),
+      port: 3000,
+      proxy: {
+        '/api': 'http://localhost:3003'
+      }
     },
     plugins: [
       new MiniCssExtractPlugin({
