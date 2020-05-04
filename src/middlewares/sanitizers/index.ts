@@ -6,8 +6,6 @@ const sanitize = (req: Request, res: Response, next: NextFunction): any => {
   const data = req.body;
   const keys = Object.keys(data);
 
-  console.log(data);
-
   keys.map(item => {
     req.body[item] =
       item === 'password'
