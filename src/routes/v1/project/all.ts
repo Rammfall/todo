@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import all from '../../../actions/project/all';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', all);
 

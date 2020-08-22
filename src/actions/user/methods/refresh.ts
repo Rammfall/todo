@@ -1,27 +1,18 @@
-import { getConnection, getRepository } from 'typeorm';
-
+import { LoginData } from '../../../interfaces/loginData';
 import UserSession from '../../../db/entity/userSession';
-import login from './login';
+import User from '../../../db/entity/user';
+import login from './login/login';
 
-export default async (refreshToken: string) => {
-  const session: UserSession = await getRepository(UserSession)
-    .createQueryBuilder('session')
-    .where('session.refreshToken = :refreshToken', { refreshToken })
-    .leftJoinAndSelect('session.user', 'user')
-    .getOne();
+const refresh = async (session: UserSession): Promise<LoginData> => {
+  if (session && +session.expiredDate >= +new Date()) {
+    const { user }: { user: User } = session;
 
-  if (session && session.expiredDate >= new Date()) {
-    const { user } = session;
-
-    await getConnection()
-      .createQueryBuilder()
-      .delete()
-      .from(UserSession)
-      .where('refreshToken = :refreshToken', { refreshToken })
-      .execute();
+    await session.remove();
 
     return await login(user);
   }
 
   throw new Error('Token not exist or expired');
 };
+
+export default refresh;

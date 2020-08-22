@@ -1,35 +1,48 @@
 import { Response, Request } from 'express';
 import validator from 'validator';
 
-import checkEmail from './methods/checkEmail';
-import checkUsername from './methods/checkUsername';
-import loginEmail from './methods/loginEmail';
-import loginUsername from './methods/loginUsername';
+import checkEmail from './methods/checkers/checkEmail';
+import checkUsername from './methods/checkers/checkUsername';
+import loginEmail from './methods/login/loginEmail';
+import loginUsername from './methods/login/loginUsername';
+import cookieSetter from './methods/cookieSetter';
 
-export default async (req: Request, res: Response) => {
-  const { name, password } = req.body;
+const login = async (req: Request, res: Response): Promise<any> => {
+  const { name, password }: { name: string; password: string } = req.body;
 
-  if (validator.isEmail(name)) {
-    if (await checkEmail(name)) {
-      try {
-        const auth = await loginEmail(name, password);
+  try {
+    if (validator.isEmail(name)) {
+      if (await checkEmail(name)) {
+        const {
+          accessToken,
+          refreshToken
+        }: { accessToken: string; refreshToken: string } = await loginEmail(
+          name,
+          password
+        );
 
-        res.json({ auth });
-      } catch (e) {
-        res.status(403).json({ info: e.message });
+        cookieSetter(res, accessToken, refreshToken);
+        res.json({});
+      } else {
+        res.status(403).json({ info: "Email doesn't exist" });
       }
-    } else {
-      res.status(403).json({ info: "Email doesn't exist" });
-    }
-  } else if (await checkUsername(name)) {
-    try {
-      const auth = await loginUsername(name, password);
+    } else if (await checkUsername(name)) {
+      const {
+        accessToken,
+        refreshToken
+      }: { accessToken: string; refreshToken: string } = await loginUsername(
+        name,
+        password
+      );
 
-      res.json({ auth });
-    } catch (e) {
-      res.status(403).json({ info: e.message });
+      cookieSetter(res, accessToken, refreshToken);
+      res.json({});
+    } else {
+      res.status(403).json({ info: "User doesn't exist" });
     }
-  } else {
-    res.status(403).json({ info: "Username doesn't exist" });
+  } catch (e) {
+    res.status(403).json({ info: e.message });
   }
 };
+
+export default login;

@@ -13,12 +13,14 @@ describe('User can to create project', () => {
     user = await createUser('testCreateProj', 'testCreate@te.te', 'pass');
   });
 
-  test('User can to create project', async () => {
+  test('User can to create own project', async () => {
     const name = 'test';
-    const project: Project = await create(user.id, name);
-    const dbProject: Project = await Project.findOne({ user });
+    const project: Project = await create(user, name);
+    const dbProject: Project | undefined = await Project.findOne({ user });
 
-    expect(dbProject.name).toEqual(project.name);
+    if (dbProject) {
+      expect(dbProject.name).toEqual(project.name);
+    }
   });
 
   afterAll(async () => {

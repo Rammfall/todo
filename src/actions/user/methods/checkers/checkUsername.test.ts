@@ -1,8 +1,8 @@
 import { getConnection } from 'typeorm';
 
 import checkUsername from './checkUsername';
-import User from '../../../db/entity/user';
-import { createUser, deleteUser } from '../../../../testUtils/user';
+import User from '../../../../db/entity/user';
+import { createUser, deleteUser } from '../../../../../testUtils/user';
 
 describe('Check user exist on email', () => {
   let user: User;

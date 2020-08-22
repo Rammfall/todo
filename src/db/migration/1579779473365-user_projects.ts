@@ -48,5 +48,7 @@ export class userProjects1579779473365 implements MigrationInterface {
     );
   }
 
-  public async down(queryRunner: QueryRunner): Promise<any> {}
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropTable('project');
+  }
 }

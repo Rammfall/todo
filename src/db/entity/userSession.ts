@@ -1,24 +1,23 @@
-import { Column, Entity, ManyToOne, BaseEntity } from 'typeorm';
+import { Column, Entity, ManyToOne, BaseEntity, PrimaryColumn } from 'typeorm';
 
-// eslint-disable-next-line import/no-cycle
 import User from './user';
 
 @Entity()
 export default class UserSession extends BaseEntity {
-  @Column({
-    type: 'uuid',
-    primary: true
+  @PrimaryColumn({
+    type: 'uuid'
   })
-  refreshToken: string;
+  refreshToken!: string;
 
   @Column({
-    type: 'timestamp'
+    type: 'timestamp',
+    nullable: false
   })
-  expiredDate: Date;
+  expiredDate!: Date;
 
   @ManyToOne(
     () => User,
     (user: User) => user.id
   )
-  user: User;
+  user!: User;
 }

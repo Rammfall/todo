@@ -1,3 +1,5 @@
+@import 'colors';
+
 html,
 body {
   font-family: 'Raleway', sans-serif;
@@ -7,7 +9,15 @@ body {
 }
 
 a {
+  color: inherit;
   text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
 }
 
 .broot {
@@ -21,4 +31,11 @@ a {
 .container {
   margin: auto;
   width: 90%;
+}
+
+.application {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
 }

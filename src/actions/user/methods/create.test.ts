@@ -10,7 +10,7 @@ describe('Register user(write to DB)', () => {
     email: 'test@create.te',
     password: 'pass'
   };
-  let user: User;
+  let user: User | undefined;
 
   beforeAll(async () => {
     await getConnection().connect();
@@ -22,11 +22,13 @@ describe('Register user(write to DB)', () => {
     const { id } = userResult;
     user = await getUser(id);
 
-    expect(id).toEqual(user.id);
+    if (user) {
+      expect(id).toEqual(user.id);
+    }
   });
 
   afterAll(async () => {
-    await deleteUser(user);
+    if (user) await deleteUser(user);
     await getConnection().close();
   });
 });

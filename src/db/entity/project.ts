@@ -6,24 +6,28 @@ import {
   ManyToOne
 } from 'typeorm';
 
-// eslint-disable-next-line import/no-cycle
 import User from './user';
 
 @Entity()
 export default class Project extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({
     type: 'varchar',
     length: '100',
     nullable: false
   })
-  name: string;
+  name!: string;
+
+  @Column({
+    nullable: false
+  })
+  userId!: number;
 
   @ManyToOne(
     () => User,
     (user: User) => user.id
   )
-  user: User;
+  user!: User;
 }

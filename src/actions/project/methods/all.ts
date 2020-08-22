@@ -1,14 +1,25 @@
 import User from '../../../db/entity/user';
 import Project from '../../../db/entity/project';
+import { ordering } from '../../../config/database';
 
-export default async (id: number) => {
-  const user = await User.findOne({ id });
+const all = async (
+  user: User,
+  take: number = 20,
+  skip: number = 0
+): Promise<Project[]> => {
+  const takeCount: number = take > 50 ? 50 : take;
+  const projects: Project[] = await Project.find({
+    where: {
+      user
+    },
+    take: takeCount,
+    skip,
+    order: {
+      id: ordering
+    }
+  });
 
-  if (user) {
-    const projects: Project[] = await Project.find({ user });
-
-    return projects;
-  }
-
-  throw new Error('User not exist');
+  return projects;
 };
+
+export default all;

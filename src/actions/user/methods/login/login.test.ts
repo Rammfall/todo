@@ -1,9 +1,9 @@
 import { getConnection } from 'typeorm';
 import validator from 'validator';
 
-import User from '../../../db/entity/user';
+import User from '../../../../db/entity/user';
 import login from './login';
-import { createUser, deleteUser } from '../../../../testUtils/user';
+import { createUser, deleteUser } from '../../../../../testUtils/user';
 
 describe('Login logic with DB', () => {
   let user: User;
@@ -13,11 +13,6 @@ describe('Login logic with DB', () => {
     user = await createUser('testLoginUser', 'test@login.email', 'pass');
   });
 
-  afterAll(async () => {
-    await deleteUser(user);
-    await getConnection().close();
-  });
-
   test('Success login user', async () => {
     const { refreshToken, accessToken } = await login(user);
 
@@ -25,5 +20,10 @@ describe('Login logic with DB', () => {
     expect(
       validator.isJWT(accessToken.substring(accessToken.indexOf(' ') + 1))
     ).toEqual(true);
+  });
+
+  afterAll(async () => {
+    await deleteUser(user);
+    await getConnection().close();
   });
 });

@@ -21,15 +21,28 @@ describe('Logout user', () => {
   });
 
   test('When we refresh, we delete current session and create new', async () => {
-    const { refreshToken } = session;
-    const newSession = await refresh(refreshToken);
-    const { accessToken } = newSession;
+    const newSession = await refresh(session);
+    const { accessToken, refreshToken } = newSession;
 
-    expect(await UserSession.findOne({ refreshToken })).toEqual(undefined);
-    expect(validator.isUUID(newSession.refreshToken, '4')).toEqual(true);
+    expect(
+      await UserSession.findOne({ refreshToken: session.refreshToken })
+    ).toEqual(undefined);
+    expect(validator.isUUID(refreshToken, '4')).toEqual(true);
     expect(
       validator.isJWT(accessToken.substring(accessToken.indexOf(' ') + 1))
     ).toEqual(true);
+  });
+
+  test('When refresh expired will be call exception', async () => {
+    const expiredSession: UserSession = await createSession(
+      user,
+      -2 * 32 * 24 * 60 * 60 * 60
+    );
+
+    // eslint-disable-next-line jest/valid-expect
+    expect(refresh(expiredSession)).rejects.toThrowError(
+      new Error('Token not exist or expired')
+    );
   });
 
   afterAll(async () => {
