@@ -60,7 +60,6 @@ jobs:
     executor: default
     steps:
       - checkout
-      - install-dependencies
       - audit
   setup_db:
     executor: default
